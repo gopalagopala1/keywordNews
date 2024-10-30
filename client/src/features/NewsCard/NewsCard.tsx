@@ -4,6 +4,7 @@ import {
   Card,
   Flex,
   Heading,
+  Skeleton,
   Text
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -13,7 +14,7 @@ const NewsCard = ({
   description,
   url,
   image,
-  isLoading,
+  isLoading ,
 }: NewsCardProps) => {
   return (
     <Card
@@ -23,8 +24,11 @@ const NewsCard = ({
       _hover={{ transform: "scale(1.02)", transition: "transform 0.2s" }}
       as="article"
     >
-      <Flex padding="0.5rem" h="100%" gap={4}>
-        <Box position="relative" w={{ base: "30%", md: "30%" }} minW="100px">
+      {isLoading ? (    
+        <Skeleton w="100%" h="100%" />
+      ) : (
+        <Flex padding="0.5rem" h="100%" gap={4}>
+          <Box position="relative" w={{ base: "30%", md: "30%" }} minW="100px">
           <Image
             src={image}
             alt={title}
@@ -46,7 +50,8 @@ const NewsCard = ({
 
           <Text noOfLines={3}>{description}</Text>
         </Flex>
-      </Flex>
+        </Flex>
+      )}
     </Card>
   );
 };
