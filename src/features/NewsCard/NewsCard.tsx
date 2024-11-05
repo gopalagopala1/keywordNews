@@ -8,14 +8,21 @@ import {
   Text
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useFetchNews } from "./api/fetch-news";
 
 const NewsCard = ({
   title,
   description,
   url,
   image,
-  isLoading ,
 }: NewsCardProps) => {
+  const { data, isLoading, error } = useFetchNews({
+    
+  });
+
+
+  console.log('data: ', data, isLoading, error);
+
   return (
     <Card
       w={{ base: "100%", md: "60%" }}
