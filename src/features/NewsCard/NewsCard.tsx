@@ -27,6 +27,7 @@ const NewsCard = ({
     <Card
       w={{ base: "100%", md: "60%" }}
       h={{ base: "auto", md: "15rem" }}
+      minH="15rem"
       shadow="lg"
       _hover={{ transform: "scale(1.02)", transition: "transform 0.2s" }}
       as="article"

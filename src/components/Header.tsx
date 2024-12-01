@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 type HeaderProps = {
-  isHomePage: boolean;
+  isHomePage?: boolean;
 };
 
 const Header = ({ isHomePage }: HeaderProps) => {
   return (
-    <Box h="5rem" boxShadow={isHomePage ? "none" : "lg"} gap="0.1rem">
+    <Box h="5rem" gap="0.1rem" position="fixed">
       <Flex justify="space-between" align="center" h="100%">
         <Flex align="center" gap="0.1rem" h="100%" justify="start">
           <Image src="/logo_1.png" alt="Keyword News" width={40} height={40} />
@@ -23,7 +23,7 @@ const Header = ({ isHomePage }: HeaderProps) => {
         </Flex>
 
         {isHomePage && (
-          <Link href="/">
+          <Link href="/read">
             <Text
               fontSize="1rem"
               fontWeight="light"
