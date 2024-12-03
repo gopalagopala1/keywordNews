@@ -5,7 +5,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
+      {
+        protocol: "http",
+        hostname: "**"
+      }
     ],
+    domains: ["img.republicworld.com"]
   },
 };
 

@@ -1,6 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { TbVirusSearch } from "react-icons/tb";
+
 
 type HeaderProps = {
   isHomePage?: boolean;
@@ -8,8 +10,8 @@ type HeaderProps = {
 
 const Header = ({ isHomePage }: HeaderProps) => {
   return (
-    <Box h="5rem" gap="0.1rem" position="fixed">
-      <Flex justify="space-between" align="center" h="100%">
+    <Flex h="5rem" gap="0.1rem" position="fixed">
+      <Flex justify="space-between" align="center" h="100%" w="full">
         <Flex align="center" gap="0.1rem" h="100%" justify="start">
           <Image src="/logo_1.png" alt="Keyword News" width={40} height={40} />
 
@@ -21,8 +23,8 @@ const Header = ({ isHomePage }: HeaderProps) => {
             Keyword News
           </Text>
         </Flex>
-
-        {isHomePage && (
+        <TbVirusSearch size="40px" color="purple"/>
+        {/* {isHomePage && (
           <Link href="/read">
             <Text
               fontSize="1rem"
@@ -33,9 +35,9 @@ const Header = ({ isHomePage }: HeaderProps) => {
               Read
             </Text>
           </Link>
-        )}
+        )} */}
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 
