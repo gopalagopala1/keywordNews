@@ -24,19 +24,19 @@ export default function Home() {
           </Box>
         </Flex>
 
-        <Flex width="50%">
-          <Flex direction="column">
-            <Text fontSize="3rem" color="purple">
+        <Flex width="50%" direction="column" gap="2rem">
+         
+            <Text fontSize="3rem" color="purple" fontWeight="thin">
               Stay Informed. Filter News
             </Text>
 
-            <Text fontSize="1.2rem">
+            <Text fontSize="1rem" fontWeight="light">
               Stay informed in 60 words. We understand you don’t have time to go
               through long news articles everyday. So we cut the clutter and
               deliver them, in 60-word shorts. Short news for the mobile
               generation.
             </Text>
-          </Flex>
+          
         </Flex>
       </Flex>
     </>
