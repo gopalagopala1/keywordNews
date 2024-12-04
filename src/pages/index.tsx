@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 export default function Home() {
@@ -13,22 +13,30 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
       >
-        <Flex width="50%">
-          <Image
-            src="/logo_1.png"
-            alt="Keyword News"
-            width="100"
-            height="100"
-          />
+        <Flex width="50%" height="full">
+          <Box height="full" width="full" position="relative">
+            <Image
+              src="/hero2.webp"
+              alt="Keyword News"
+              objectFit="contain"
+              fill
+            />
+          </Box>
         </Flex>
 
         <Flex width="50%">
-          <Text>
-            Stay informed in 60 words. We understand you don’t have time to go
-            through long news articles everyday. So we cut the clutter and
-            deliver them, in 60-word shorts. Short news for the mobile
-            generation.
-          </Text>
+          <Flex direction="column">
+            <Text fontSize="3rem" color="purple">
+              Stay Informed. Filter News
+            </Text>
+
+            <Text fontSize="1.2rem">
+              Stay informed in 60 words. We understand you don’t have time to go
+              through long news articles everyday. So we cut the clutter and
+              deliver them, in 60-word shorts. Short news for the mobile
+              generation.
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
     </>
