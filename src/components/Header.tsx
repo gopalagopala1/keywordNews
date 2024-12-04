@@ -1,13 +1,14 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { TbVirusSearch } from "react-icons/tb";
 
 type HeaderProps = {
   isHomePage?: boolean;
+  onOpenSearchModal?: () => void;
 };
 
-const Header = ({ isHomePage }: HeaderProps) => {
+const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
   return (
     <Flex
       h="5rem"
@@ -15,11 +16,11 @@ const Header = ({ isHomePage }: HeaderProps) => {
       position="fixed"
       borderBottom="1px"
       w="container.xl"
-      bg="white" 
-      zIndex="1000" 
-      top="0" 
+      bg="white"
+      zIndex="1000"
+      top="0"
     >
-      <Flex justify="space-between" align="center" h="100%" w="full" >
+      <Flex justify="space-between" align="center" h="100%" w="full">
         <Link href="/">
           <Flex align="center" gap="0.1rem" h="100%" justify="start">
             <Image
@@ -45,7 +46,9 @@ const Header = ({ isHomePage }: HeaderProps) => {
             </Text>
           </Link>
         ) : (
-          <TbVirusSearch size="2rem" color="purple" />
+          <Box onClick={onOpenSearchModal}>
+            <TbVirusSearch size="2rem" color="purple" />
+          </Box>
         )}
       </Flex>
     </Flex>
