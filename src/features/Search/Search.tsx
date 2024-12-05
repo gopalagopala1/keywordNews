@@ -1,4 +1,5 @@
 import {
+  Button,
   Flex,
   Input,
   InputGroup,
@@ -41,6 +42,10 @@ const Search = ({ isOpen, onClose }: SearchType) => {
                 Search for news without space or comma separated keywords
               </Text>
             </InputGroup>
+
+            <Button bg="purple" textColor="white">
+              Search
+            </Button>
           </Flex>
         </ModalBody>
       </ModalContent>
