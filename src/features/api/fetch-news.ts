@@ -13,10 +13,10 @@ const fetchNews = async (payload: FetchNewsPayload) => {
 };
 
 export const useFetchNews = (payload: FetchNewsPayload) => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["news", payload],
     queryFn: () => fetchNews(payload),
   });
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 };
