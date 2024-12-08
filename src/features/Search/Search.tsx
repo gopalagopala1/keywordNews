@@ -39,7 +39,7 @@ const Search = ({ isOpen, onClose }: SearchType) => {
               </Text>
               <Input />
               <Text fontSize="0.5rem" fontStyle="italic" color="grey">
-                Search for news without space or comma separated keywords
+                Search for news without  space or comma separated keywords
               </Text>
             </InputGroup>
 
