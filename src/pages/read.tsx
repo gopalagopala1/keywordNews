@@ -6,7 +6,14 @@ import { NewsDataType } from "@/types/news";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 
 const Read = () => {
-  const { newsData, isNewsDataLoading, newsError } = useReadNews();
+  const {
+    newsData,
+    isNewsDataLoading,
+    newsError,
+    onSearch,
+    onClear,
+    parseInput,
+  } = useReadNews();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -23,16 +30,24 @@ const Read = () => {
           overflowY="scroll"
           mt="6rem"
         >
-          {newsData?.results.map((news: NewsDataType) => (
-            <NewsCard
-              key={news.article_id}
-              news={news}
-              isLoading={isNewsDataLoading}
-            />
-          ))}
+          {newsData &&
+            newsData?.results &&
+            newsData?.results?.map((news: NewsDataType) => (
+              <NewsCard
+                key={news.article_id}
+                news={news}
+                isLoading={isNewsDataLoading}
+              />
+            ))}
         </Flex>
       </Flex>
-      <Search isOpen={isOpen} onClose={onClose} />
+      <Search
+        isOpen={isOpen}
+        onClose={onClose}
+        onSearch={onSearch}
+        parseInput={parseInput}
+        onClear={onClear}
+      />
     </>
   );
 };

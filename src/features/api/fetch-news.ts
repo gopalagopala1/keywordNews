@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchNews = async (payload: FetchNewsPayload) => {
   const response = await apiClient.post("/news", {
-    params: payload,
+    ...payload,
   });
 
   return response.data;
