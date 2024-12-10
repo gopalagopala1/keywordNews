@@ -25,18 +25,21 @@ export default function Home() {
         </Flex>
 
         <Flex width="50%" direction="column" gap="2rem">
-         
-            <Text fontSize="3rem" color="purple" fontWeight="thin">
-              Stay Informed. Filter News
-            </Text>
+          <Text
+            fontSize="3rem"
+            color="purple"
+            fontWeight="thin"
+            textTransform="capitalize"
+          >
+            Stay informed, your way
+          </Text>
 
-            <Text fontSize="1rem" fontWeight="light">
-              Stay informed in 60 words. We understand you don’t have time to go
-              through long news articles everyday. So we cut the clutter and
-              deliver them, in 60-word shorts. Short news for the mobile
-              generation.
-            </Text>
-          
+          <Text fontSize="1rem" fontWeight="light">
+            With Keyword News, discover news tailored to your interests. Search
+            for news by including the topics you care about—or{" "}
+            <strong>exclude</strong> keywords to filter out what you don’t.
+            It&apos;s news, customized to you.
+          </Text>
         </Flex>
       </Flex>
     </>
