@@ -1,25 +1,29 @@
 import Header from "@/components/Header";
-import useReadNews from "@/features/NewsCard/hooks/useReadNews";
-import NewsCard from "@/features/NewsCard/NewsCard";
-import Search from "@/features/Search/Search";
+import NewsCard from "@/components/NewsCard";
+import Search from "@/components/Search";
+import useNews from "@/hooks/useNews";
 import { NewsDataType } from "@/types/news";
-import { Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 const Read = () => {
   const {
-    newsData,
-    isNewsDataLoading,
-    newsError,
+    data,
+    isLoading,
+    error,
     onSearch,
     onClear,
     parseInput,
-  } = useReadNews();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+    isSearchModalOpen,
+    onOpenSearchModal,
+    onCloseSearchModal,
+  } = useNews();
+
+  console.log("error: ", error);
 
   return (
     <>
       <Flex direction="column" gap="1rem">
-        <Header onOpenSearchModal={onOpen} />
+        <Header onOpenSearchModal={onOpenSearchModal} />
         <Flex
           justify="center"
           align="center"
@@ -30,20 +34,19 @@ const Read = () => {
           overflowY="scroll"
           mt="6rem"
         >
-          {newsData &&
-            newsData?.results &&
-            newsData?.results?.map((news: NewsDataType) => (
+          {!error &&
+            data?.results?.map((news: NewsDataType) => (
               <NewsCard
                 key={news.article_id}
                 news={news}
-                isLoading={isNewsDataLoading}
+                isLoading={isLoading}
               />
             ))}
         </Flex>
       </Flex>
       <Search
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isSearchModalOpen}
+        onClose={onCloseSearchModal}
         onSearch={onSearch}
         parseInput={parseInput}
         onClear={onClear}
