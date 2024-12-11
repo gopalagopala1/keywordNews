@@ -15,12 +15,19 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
       gap="0.1rem"
       position="fixed"
       borderBottom="1px"
-      w="container.xl"
       bg="white"
       zIndex="1000"
       top="0"
+      left="0"
+      w="full"
     >
-      <Flex justify="space-between" align="center" h="100%" w="full">
+      <Flex
+        justify="space-between"
+        align="center"
+        h="100%"
+        w="container.xl"
+        mx="auto"
+      >
         <Link href="/">
           <Flex align="center" gap="0.1rem" h="100%" justify="start">
             <Image
