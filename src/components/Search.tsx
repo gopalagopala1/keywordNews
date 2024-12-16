@@ -100,10 +100,33 @@ const Search = ({
               </Flex>
 
               <Flex gap="1rem" mt="1rem">
-                <Button bg="purple" textColor="white" type="submit" flex="1">
+                <Button
+                  bg="purple"
+                  textColor="white"
+                  type="submit"
+                  flex="1"
+                  _hover={{
+                    textColor: "purple",
+                    backgroundColor: "white",
+                    border: "1px",
+                    borderColor: "purple",
+                  }}
+                >
                   Search
                 </Button>
-                <Button variant="outline" onClick={handleClear} flex="1">
+                <Button
+                  variant="outline"
+                  onClick={handleClear}
+                  flex="1"
+                  color="purple"
+                  border="1px"
+                  borderColor="purple"
+                  _hover={{
+                    backgroundColor: "purple",
+                    color: "white",
+                    border: "none",
+                  }}
+                >
                   Clear
                 </Button>
               </Flex>
