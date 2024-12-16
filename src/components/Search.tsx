@@ -1,5 +1,6 @@
 import { FetchNewsPayload } from "@/types/news";
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -7,7 +8,9 @@ import {
   InputGroup,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
+  ModalHeader,
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
@@ -50,13 +53,19 @@ const Search = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent h="70%">
+        <ModalHeader fontSize="2rem">Search</ModalHeader>
+        <ModalCloseButton />
         <ModalBody padding="2rem">
-          <form onSubmit={handleFormSubmit}>
-            <Flex direction="column" gap="1rem" width="full" bg="white">
-              <FormControl>
+          <form onSubmit={handleFormSubmit} style={{ height: "100%" }}>
+            <Flex
+              direction="column"
+              justifyContent="space-between"
+              height="full"
+            >
+              <Box>
                 <InputGroup flexDirection="column">
                   <Text fontSize="0.8rem" mb="0.5rem" fontWeight="600">
                     Include Keywords
@@ -70,9 +79,7 @@ const Search = ({
                     Search for news with space or comma separated keywords
                   </Text>
                 </InputGroup>
-              </FormControl>
 
-              <FormControl>
                 <InputGroup flexDirection="column">
                   <Text fontSize="0.8rem" mb="0.5rem" fontWeight="600">
                     Exclude Keywords
@@ -86,7 +93,7 @@ const Search = ({
                     Search for news without space or comma separated keywords
                   </Text>
                 </InputGroup>
-              </FormControl>
+              </Box>
 
               <Flex gap="1rem" mt="1rem">
                 <Button bg="purple" textColor="white" type="submit" flex="1">
