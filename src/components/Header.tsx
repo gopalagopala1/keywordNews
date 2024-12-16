@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { TbVirusSearch } from "react-icons/tb";
+import { TbAdjustmentsSearch } from "react-icons/tb";
 
 type HeaderProps = {
   isHomePage?: boolean;
@@ -54,7 +54,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
           </Link>
         ) : (
           <Box onClick={onOpenSearchModal}>
-            <TbVirusSearch size="2rem" color="purple" />
+            <TbAdjustmentsSearch size="2rem" color="purple" />
           </Box>
         )}
       </Flex>

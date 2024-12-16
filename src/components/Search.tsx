@@ -56,7 +56,9 @@ const Search = ({
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
       <ModalContent h="70%">
-        <ModalHeader fontSize="2rem">Search</ModalHeader>
+        <ModalHeader fontSize="2rem" borderBottom="1px" borderColor="purple">
+          Search
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody padding="2rem">
           <form onSubmit={handleFormSubmit} style={{ height: "100%" }}>
@@ -65,35 +67,37 @@ const Search = ({
               justifyContent="space-between"
               height="full"
             >
-              <Box>
+              <Flex gap="1rem" fontSize="1rem">
                 <InputGroup flexDirection="column">
-                  <Text fontSize="0.8rem" mb="0.5rem" fontWeight="600">
+                  <Text mb="0.5rem" fontWeight="600">
                     Include Keywords
                   </Text>
                   <Input
                     value={includeKeywords}
                     onChange={(e) => setIncludeKeywords(e.target.value)}
                     placeholder="Enter keywords to include"
+                    border="1px"
                   />
-                  <Text fontSize="0.5rem" fontStyle="italic" color="grey">
+                  <Text fontSize="0.7rem" fontStyle="italic" color="grey">
                     Search for news with space or comma separated keywords
                   </Text>
                 </InputGroup>
 
                 <InputGroup flexDirection="column">
-                  <Text fontSize="0.8rem" mb="0.5rem" fontWeight="600">
+                  <Text mb="0.5rem" fontWeight="600">
                     Exclude Keywords
                   </Text>
                   <Input
                     value={excludeKeywords}
                     onChange={(e) => setExcludeKeywords(e.target.value)}
                     placeholder="Enter keywords to exclude"
+                    border="1px"
                   />
-                  <Text fontSize="0.5rem" fontStyle="italic" color="grey">
+                  <Text fontSize="0.7rem" fontStyle="italic" color="grey">
                     Search for news without space or comma separated keywords
                   </Text>
                 </InputGroup>
-              </Box>
+              </Flex>
 
               <Flex gap="1rem" mt="1rem">
                 <Button bg="purple" textColor="white" type="submit" flex="1">
