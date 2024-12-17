@@ -1,4 +1,4 @@
-export type NewsDataType  = {
+export type NewsDataType = {
   article_id: string;
   title: string;
   link: string;
@@ -24,7 +24,7 @@ export type NewsDataType  = {
   ai_region: string;
   ai_org: string;
   duplicate: boolean;
-}
+};
 
 export type FetchNewsPayload = {
   includeKeywords?: string[];
@@ -32,4 +32,5 @@ export type FetchNewsPayload = {
   category?: string;
   country?: string;
   page?: number;
+  language?: string;
 };

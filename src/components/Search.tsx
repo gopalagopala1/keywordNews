@@ -1,9 +1,12 @@
 import { FetchNewsPayload } from "@/types/news";
 import {
-  Box,
+  categoriesArray,
+  countryCodes,
+  languageCodesArray,
+} from "@/utils/constants";
+import {
   Button,
   Flex,
-  FormControl,
   Input,
   InputGroup,
   Modal,
@@ -12,6 +15,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   Text,
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
@@ -36,10 +40,18 @@ const Search = ({
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
 
     const payload: FetchNewsPayload = {
-      includeKeywords: parseInput(includeKeywords),
-      excludeKeywords: parseInput(excludeKeywords),
+      includeKeywords: parseInput(
+        (formData.get("includeKeywords") as string) || ""
+      ),
+      excludeKeywords: parseInput(
+        (formData.get("excludeKeywords") as string) || ""
+      ),
+      country: formData.get("country") as string,
+      category: formData.get("category") as string,
+      language: formData.get("language") as string,
     };
 
     onSearch(payload);
@@ -67,35 +79,91 @@ const Search = ({
               justifyContent="space-between"
               height="full"
             >
-              <Flex gap="1rem" fontSize="1rem">
-                <InputGroup flexDirection="column">
-                  <Text mb="0.5rem" fontWeight="600">
-                    Include Keywords
-                  </Text>
-                  <Input
-                    value={includeKeywords}
-                    onChange={(e) => setIncludeKeywords(e.target.value)}
-                    placeholder="Enter keywords to include"
-                    border="1px"
-                  />
-                  <Text fontSize="0.7rem" fontStyle="italic" color="grey">
-                    Search for news with space or comma separated keywords
-                  </Text>
-                </InputGroup>
+              <Flex direction="column" gap="1rem">
+                <Flex gap="1rem" fontSize="1rem">
+                  <InputGroup flexDirection="column">
+                    <Text mb="0.5rem" fontWeight="600">
+                      Include Keywords
+                    </Text>
+                    <Input
+                      value={includeKeywords}
+                      onChange={(e) => setIncludeKeywords(e.target.value)}
+                      placeholder="Enter keywords to include"
+                      border="1px"
+                      name="includeKeywords"
+                    />
+                    <Text fontSize="0.7rem" fontStyle="italic" color="grey">
+                      Search for news with space or comma separated keywords
+                    </Text>
+                  </InputGroup>
 
+                  <InputGroup flexDirection="column">
+                    <Text mb="0.5rem" fontWeight="600">
+                      Exclude Keywords
+                    </Text>
+                    <Input
+                      value={excludeKeywords}
+                      onChange={(e) => setExcludeKeywords(e.target.value)}
+                      placeholder="Enter keywords to exclude"
+                      border="1px"
+                      name="excludeKeywords"
+                    />
+                    <Text fontSize="0.7rem" fontStyle="italic" color="grey">
+                      Search for news without space or comma separated keywords
+                    </Text>
+                  </InputGroup>
+                </Flex>
+
+                <Flex gap="1rem" fontSize="1rem">
+                  <InputGroup flexDirection="column">
+                    <Text mb="0.5rem" fontWeight="600">
+                      Country
+                    </Text>
+                    <Select
+                      placeholder="-Select Country-"
+                      border="1px"
+                      name="country"
+                    >
+                      {countryCodes?.map((cc) => (
+                        <option value={cc.value} key={cc.value}>
+                          {cc.label}
+                        </option>
+                      ))}
+                    </Select>
+                  </InputGroup>
+
+                  <InputGroup flexDirection="column">
+                    <Text mb="0.5rem" fontWeight="600">
+                      Category
+                    </Text>
+                    <Select
+                      placeholder="-Select Category-"
+                      border="1px"
+                      name="category"
+                    >
+                      {categoriesArray?.map((cat) => (
+                        <option value={cat.value} key={cat.value}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </Select>
+                  </InputGroup>
+                </Flex>
                 <InputGroup flexDirection="column">
                   <Text mb="0.5rem" fontWeight="600">
-                    Exclude Keywords
+                    Language
                   </Text>
-                  <Input
-                    value={excludeKeywords}
-                    onChange={(e) => setExcludeKeywords(e.target.value)}
-                    placeholder="Enter keywords to exclude"
+                  <Select
+                    placeholder="-Select Language-"
                     border="1px"
-                  />
-                  <Text fontSize="0.7rem" fontStyle="italic" color="grey">
-                    Search for news without space or comma separated keywords
-                  </Text>
+                    name="language"
+                  >
+                    {languageCodesArray?.map((lang) => (
+                      <option value={lang.value} key={lang.value}>
+                        {lang.label}
+                      </option>
+                    ))}
+                  </Select>
                 </InputGroup>
               </Flex>
 
