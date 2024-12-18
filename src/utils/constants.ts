@@ -1,4 +1,6 @@
-export const countryCodes = [
+import { Option } from "@/types/news";
+
+export const countryCodes: Option[] = [
   { label: "Afghanistan", value: "af" },
   { label: "Albania", value: "al" },
   { label: "Algeria", value: "dz" },
@@ -207,7 +209,7 @@ export const countryCodes = [
   { label: "Zimbabwe", value: "zw" },
 ];
 
-export const categoriesArray = [
+export const categoriesArray: Option[] = [
   { label: "Business", value: "business" },
   { label: "Crime", value: "crime" },
   { label: "Domestic", value: "domestic" },
@@ -227,7 +229,7 @@ export const categoriesArray = [
   { label: "World", value: "world" },
 ];
 
-export const languageCodesArray = [
+export const languageCodesArray: Option[] = [
   { label: "Afrikaans", value: "af" },
   { label: "Albanian", value: "sq" },
   { label: "Amharic", value: "am" },

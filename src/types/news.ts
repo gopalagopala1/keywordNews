@@ -34,3 +34,5 @@ export type FetchNewsPayload = {
   page?: number;
   language?: string;
 };
+
+export type Option = { label: string; value: string };
