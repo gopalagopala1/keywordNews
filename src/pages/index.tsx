@@ -27,7 +27,7 @@ export default function Home() {
         <Flex width="50%" direction="column" gap="2rem">
           <Text
             fontSize="3rem"
-            color="purple"
+            color="purple.700"
             fontWeight="thin"
             textTransform="capitalize"
           >

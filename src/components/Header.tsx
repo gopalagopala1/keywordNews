@@ -1,5 +1,4 @@
-import { Box, Button, Flex, Text, useColorMode } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
 import Link from "next/link";
 import { TbAdjustmentsSearch } from "react-icons/tb";
 
@@ -16,6 +15,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
       gap="0.1rem"
       position="fixed"
       borderBottom="1px"
+      borderColor="purple.700"
       bg="white"
       zIndex="1000"
       top="0"
@@ -31,17 +31,11 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
       >
         <Link href="/">
           <Flex align="center" gap="0.1rem" h="100%" justify="start">
-            <Image
-              src="/logo_1.png"
-              alt="Keyword News"
-              width={40}
-              height={40}
-            />
-
             <Text
               fontSize="1.5rem"
               fontWeight="extrabold"
               textTransform="uppercase"
+              color="purple.700"
             >
               Keyword News
             </Text>
@@ -52,13 +46,13 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
         </Button> */}
         {isHomePage ? (
           <Link href="/read">
-            <Text fontSize="1rem" color="purple">
+            <Text fontSize="1rem" color="purple.700">
               Read
             </Text>
           </Link>
         ) : (
           <Box onClick={onOpenSearchModal}>
-            <TbAdjustmentsSearch size="2rem" color="purple" />
+            <TbAdjustmentsSearch size="2rem" color="purple.700" />
           </Box>
         )}
       </Flex>

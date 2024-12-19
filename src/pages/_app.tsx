@@ -1,5 +1,6 @@
 import BaseLayout from "@/layouts/BaseLayout";
 import "@/styles/globals.css";
+import { theme } from "@/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -17,7 +18,7 @@ const newsCycle = News_Cycle({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <BaseLayout>
           <Component {...pageProps} className={newsCycle.className} />
         </BaseLayout>
