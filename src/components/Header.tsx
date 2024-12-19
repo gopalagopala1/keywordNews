@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useColorMode } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { TbAdjustmentsSearch } from "react-icons/tb";
@@ -9,6 +9,7 @@ type HeaderProps = {
 };
 
 const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Flex
       h="5rem"
@@ -46,6 +47,9 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
             </Text>
           </Flex>
         </Link>
+        {/* <Button onClick={toggleColorMode}>
+          Toggle {colorMode === "light" ? "Dark" : "Light"}
+        </Button> */}
         {isHomePage ? (
           <Link href="/read">
             <Text fontSize="1rem" color="purple">

@@ -18,8 +18,6 @@ const Read = () => {
     onCloseSearchModal,
   } = useNews();
 
-  console.log("error: ", error);
-
   return (
     <>
       <Flex direction="column" gap="1rem">
