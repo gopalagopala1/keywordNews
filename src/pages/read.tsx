@@ -1,9 +1,10 @@
+import EmblaCarousel from "@/components/EmblaCarousel";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Search from "@/components/Search";
 import useNews from "@/hooks/useNews";
 import { NewsDataType } from "@/types/news";
-import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 const Read = () => {
   const {
@@ -18,12 +19,38 @@ const Read = () => {
     onCloseSearchModal,
   } = useNews();
 
+  console.log("data: ", data, error);
+
   return (
     <>
       <Flex direction="column" gap="1rem">
         <Header onOpenSearchModal={onOpenSearchModal} />
-        <Flex direction="column" justifyContent="center" alignItems="center">
-          <SimpleGrid
+        {error ? (
+          <Flex
+            height="full"
+            width="full"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text>{error.message}</Text>
+          </Flex>
+        ) : (
+          <Flex
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            mt="6rem"
+          >
+            <EmblaCarousel>
+              {data?.results?.map((news: NewsDataType) => (
+                <NewsCard
+                  key={news.article_id}
+                  news={news}
+                  isLoading={isLoading}
+                />
+              ))}
+            </EmblaCarousel>
+            {/* <SimpleGrid
             columns={{ base: 1, md: 2 }}
             spacing="1rem"
             w="100%"
@@ -42,8 +69,9 @@ const Read = () => {
               ))}
 
             {error && error.message}
-          </SimpleGrid>
-        </Flex>
+          </SimpleGrid> */}
+          </Flex>
+        )}
       </Flex>
       <Search
         isOpen={isSearchModalOpen}
