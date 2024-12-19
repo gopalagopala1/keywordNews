@@ -6,7 +6,8 @@ import { useFetchNews } from "./useFetchNews";
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
 
-  const { data, isLoading, error } = useFetchNews(searchParams);
+  const { data, isLoading } = useFetchNews(searchParams);
+  const error = data?.status == "error" ? data?.results : undefined;
 
   const parseInput = (input: string) => {
     // handle empty string

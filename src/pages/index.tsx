@@ -13,25 +13,14 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
       >
-        <Flex width="50%" height="full">
-          <Box height="full" width="full" position="relative">
-            <Image
-              src="/hero2.webp"
-              alt="Keyword News"
-              objectFit="contain"
-              fill
-            />
-          </Box>
-        </Flex>
-
-        <Flex width="50%" direction="column" gap="2rem">
+        <Flex width="80%" textAlign="center" direction="column" gap="2rem">
           <Text
             fontSize="3rem"
             color="purple.700"
             fontWeight="thin"
             textTransform="capitalize"
           >
-            Stay informed, your way
+            Stay informed, keyword way
           </Text>
 
           <Text fontSize="1rem" fontWeight="light">

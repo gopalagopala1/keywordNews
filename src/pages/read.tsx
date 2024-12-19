@@ -3,7 +3,7 @@ import NewsCard from "@/components/NewsCard";
 import Search from "@/components/Search";
 import useNews from "@/hooks/useNews";
 import { NewsDataType } from "@/types/news";
-import { Flex } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 
 const Read = () => {
   const {
@@ -22,24 +22,27 @@ const Read = () => {
     <>
       <Flex direction="column" gap="1rem">
         <Header onOpenSearchModal={onOpenSearchModal} />
-        <Flex
-          justify="center"
-          align="center"
-          w="100%"
-          gap="1rem"
-          direction="column"
-          overflow="auto"
-          overflowY="scroll"
-          mt="6rem"
-        >
-          {!error &&
-            data?.results?.map((news: NewsDataType) => (
-              <NewsCard
-                key={news.article_id}
-                news={news}
-                isLoading={isLoading}
-              />
-            ))}
+        <Flex direction="column" justifyContent="center" alignItems="center">
+          <SimpleGrid
+            columns={{ base: 1, md: 2 }}
+            spacing="1rem"
+            w="100%"
+            maxW="1200px"
+            mx="auto"
+            px="1rem"
+            mt="6rem"
+          >
+            {!error &&
+              data?.results?.map((news: NewsDataType) => (
+                <NewsCard
+                  key={news.article_id}
+                  news={news}
+                  isLoading={isLoading}
+                />
+              ))}
+
+            {error && error.message}
+          </SimpleGrid>
         </Flex>
       </Flex>
       <Search

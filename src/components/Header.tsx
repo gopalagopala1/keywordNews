@@ -52,7 +52,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
           </Link>
         ) : (
           <Box onClick={onOpenSearchModal}>
-            <TbAdjustmentsSearch size="2rem" color="purple.700" />
+            <TbAdjustmentsSearch size="2rem" color="#553C9A" />
           </Box>
         )}
       </Flex>

@@ -67,8 +67,12 @@ const Search = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
-      <ModalContent h="70%">
-        <ModalHeader fontSize="2rem" borderBottom="1px" borderColor="purple">
+      <ModalContent h="70%" color="purple.700">
+        <ModalHeader
+          fontSize="2rem"
+          borderBottom="1px"
+          borderColor="purple.700"
+        >
           Search
         </ModalHeader>
         <ModalCloseButton />
@@ -169,15 +173,15 @@ const Search = ({
 
               <Flex gap="1rem" mt="1rem">
                 <Button
-                  bg="purple"
+                  bg="purple.700"
                   textColor="white"
                   type="submit"
                   flex="1"
                   _hover={{
-                    textColor: "purple",
+                    textColor: "purple.700",
                     backgroundColor: "white",
                     border: "1px",
-                    borderColor: "purple",
+                    borderColor: "purple.700",
                   }}
                 >
                   Search
@@ -186,11 +190,11 @@ const Search = ({
                   variant="outline"
                   onClick={handleClear}
                   flex="1"
-                  color="purple"
+                  color="purple.700"
                   border="1px"
-                  borderColor="purple"
+                  borderColor="purple.700"
                   _hover={{
-                    backgroundColor: "purple",
+                    backgroundColor: "purple.700",
                     color: "white",
                     border: "none",
                   }}
