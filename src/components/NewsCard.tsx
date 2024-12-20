@@ -1,10 +1,10 @@
 import { NewsDataType } from "@/types/news";
-import { Box, Card, Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
-export type NewsCardType = { news: NewsDataType; isLoading: boolean };
+export type NewsCardType = { news: NewsDataType };
 
-const NewsCard = ({ news, isLoading }: NewsCardType) => {
+const NewsCard = ({ news }: NewsCardType) => {
   return (
     <Card
       w="100%"
