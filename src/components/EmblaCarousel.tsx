@@ -17,6 +17,7 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "./EmblaCarouselArrowButtons";
+import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 
 const mockApiCall = (
   minWait: number,
@@ -152,6 +153,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     hasMoreToLoadRef.current = hasMoreToLoad;
   }, [hasMoreToLoad]);
 
+  const { isMobile } = useDeviceSizes();
+
   return (
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
@@ -173,12 +176,20 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         </div>
       </div>
 
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+      {!isMobile && (
+        <div className="embla__controls">
+          <div className="embla__buttons">
+            <PrevButton
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
+            />
+            <NextButton
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

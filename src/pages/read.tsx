@@ -2,6 +2,7 @@ import EmblaCarousel from "@/components/EmblaCarousel";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Search from "@/components/Search";
+import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import useNews from "@/hooks/useNews";
 import { NewsDataType } from "@/types/news";
 import { Flex, Text } from "@chakra-ui/react";
@@ -19,7 +20,10 @@ const Read = () => {
     onCloseSearchModal,
   } = useNews();
 
-  console.log("data: ", data, error);
+  const { isMobile } = useDeviceSizes();
+
+  const mobileView = () => <>
+  </>;
 
   return (
     <>
@@ -43,11 +47,7 @@ const Read = () => {
           >
             <EmblaCarousel>
               {data?.results?.map((news: NewsDataType) => (
-                <NewsCard
-                  key={news.article_id}
-                  news={news}
-                  isLoading={isLoading}
-                />
+                <NewsCard key={news.article_id} news={news} />
               ))}
             </EmblaCarousel>
             {/* <SimpleGrid
