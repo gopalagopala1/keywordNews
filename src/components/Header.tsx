@@ -21,6 +21,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
       top="0"
       left="0"
       w="full"
+      padding="1rem"
     >
       <Flex
         justify="space-between"
