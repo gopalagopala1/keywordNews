@@ -1,6 +1,5 @@
 import { useMediaQuery } from "@chakra-ui/react";
 
-// Breakpoint constants (in pixels)
 const BREAKPOINTS = {
   xs: 350,
   sm: 640,
@@ -11,17 +10,17 @@ const BREAKPOINTS = {
 } as const;
 
 type DeviceSizes = {
-  isXsMobile: boolean; // Max 350px
-  isMobile: boolean; // Max 640px
-  isTablet: boolean; // 641px - 768px
-  isSmallLaptop: boolean; // 769px - 1024px
-  isLaptop: boolean; // 1025px - 1280px
-  isDesktop: boolean; // 1281px - 1536px
-  isLargeDesktop: boolean; // > 1536px
+  isXsMobile: boolean;
+  isMobile: boolean;
+  isTablet: boolean; 
+  isSmallLaptop: boolean; 
+  isLaptop: boolean; 
+  isDesktop: boolean; 
+  isLargeDesktop: boolean; 
 };
 
 export const useDeviceSizes = (): DeviceSizes => {
-  // Individual breakpoint queries
+
   const [isXsMobile] = useMediaQuery(`(max-width:${BREAKPOINTS.xs}px)`, {
     ssr: true,
     fallback: true,
