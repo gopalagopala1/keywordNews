@@ -22,8 +22,7 @@ const Read = () => {
 
   const { isMobile } = useDeviceSizes();
 
-  const mobileView = () => <>
-  </>;
+  console.log('new data: ', data?.results)
 
   return (
     <>

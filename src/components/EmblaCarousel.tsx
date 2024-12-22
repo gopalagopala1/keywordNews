@@ -37,8 +37,6 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const OPTIONS: EmblaOptionsType = {
-    dragFree: true,
-    containScroll: "keepSnaps",
     watchSlides: false,
     watchResize: false,
   };

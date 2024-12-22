@@ -27,7 +27,7 @@ const NewsCard = ({ news }: NewsCardType) => {
         <Heading
           size="md"
           as="a"
-          href={news.source_url}
+          href={news.link}
           _hover={{ color: "blue.500" }}
           cursor="pointer"
         >
