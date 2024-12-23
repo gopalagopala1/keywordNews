@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useColorMode } from "@chakra-ui/react";
 import Link from "next/link";
 import { TbAdjustmentsSearch } from "react-icons/tb";
 
@@ -15,7 +15,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
       gap="0.1rem"
       position="fixed"
       borderBottom="1px"
-      borderColor="purple.700"
+      borderColor="black"
       bg="white"
       zIndex="1000"
       top="0"
@@ -36,7 +36,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
               fontSize="1.5rem"
               fontWeight="extrabold"
               textTransform="uppercase"
-              color="purple.700"
+              color="black"
             >
               Keyword News
             </Text>
@@ -47,7 +47,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
         </Button> */}
         {isHomePage ? (
           <Link href="/read">
-            <Text fontSize="1rem" color="purple.700">
+            <Text fontSize="1rem" color="black">
               Read
             </Text>
           </Link>

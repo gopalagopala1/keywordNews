@@ -9,7 +9,7 @@ export default function Home() {
   const heroText = () => (
     <Box bg="red.400" width="full" height="62vh" position="relative">
       <Text
-        fontSize={isMobile ? "2.5rem" : "3rem"}
+        fontSize={isMobile ? "2.5rem" : "5rem"}
         color="white"
         mt="8rem"
         textAlign="center"
@@ -28,7 +28,7 @@ export default function Home() {
       {heroText()}
 
       <Flex textAlign="center" direction="column" mt="2rem">
-        <Text fontSize="1.25rem"  textAlign="start">
+        <Text fontSize={isMobile? "1.25rem": "2rem"}  textAlign="start">
           With Keyword News, discover news tailored to your interests. Search
           for news by including the topics you care about—or{" "}
           <strong>exclude</strong> keywords to filter out what you don’t.
