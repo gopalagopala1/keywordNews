@@ -7,7 +7,6 @@ export type NewsCardType = { news: NewsDataType };
 
 const NewsCard = ({ news }: NewsCardType) => {
   const { isMobile } = useDeviceSizes();
-
   const mobileView = () => (
     <Flex  h="full" gap={4} direction="column" minH="full">
       <Box position="relative" w="100%" height="300px" minH="">
@@ -22,7 +21,7 @@ const NewsCard = ({ news }: NewsCardType) => {
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
-      </Box>
+      </Box>  
       <Flex flexDirection="column" flex={1} gap="0.5rem" h="full">
         <Heading
           size="md"

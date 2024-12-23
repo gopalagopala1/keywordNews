@@ -1,15 +1,20 @@
 import { apiClient } from "@/libs/apiClient";
-import { FetchNewsPayload } from "@/types/news";
+import { FetchNewsPayload, NewsDataType } from "@/types/news";
 import { useQuery } from "@tanstack/react-query";
 
-// fetch new from the api
+type FetchNewsResponseType = {
+  data: NewsDataType[],
+  status: string,
+}
 
-const fetchNews = async (payload: FetchNewsPayload) => {
+async function fetchNews(payload: FetchNewsPayload): Promise<FetchNewsResponseType> {
   const response = await apiClient.post("/news", {
     ...payload,
   });
 
-  return response.data;
+  const data = response?.data?.results;
+  const status = response?.data?.status;
+  return {data, status};
 };
 
 export const useFetchNews = (payload: FetchNewsPayload) => {
@@ -18,5 +23,5 @@ export const useFetchNews = (payload: FetchNewsPayload) => {
     queryFn: () => fetchNews(payload),
   });
 
-  return { data, isLoading, error, refetch };
+  return {  response: data , isLoading, error, refetch };
 };

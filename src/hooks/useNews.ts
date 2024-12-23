@@ -6,8 +6,8 @@ import { useFetchNews } from "./useFetchNews";
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
 
-  const { data, isLoading } = useFetchNews(searchParams);
-  const error = data?.status == "error" ? data?.results : undefined;
+  const { response , isLoading } = useFetchNews(searchParams);
+  const error = response?.status == "error" ? response?.data : undefined as  {message: string}| undefined;
 
   const parseInput = (input: string) => {
     // handle empty string
@@ -38,7 +38,7 @@ const useNews = () => {
   } = useDisclosure();
 
   return {
-    data,
+    data: response?.data,
     isLoading,
     error,
     parseInput,
