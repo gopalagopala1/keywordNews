@@ -9,7 +9,7 @@ const NewsCard = ({ news }: NewsCardType) => {
   const { isMobile } = useDeviceSizes();
 
   const mobileView = () => (
-    <Flex padding="0.5rem" h="full" gap={4} direction="column" minH="full">
+    <Flex  h="full" gap={4} direction="column" minH="full">
       <Box position="relative" w="100%" height="300px" minH="">
         <Image
           src={news.image_url}
@@ -23,7 +23,7 @@ const NewsCard = ({ news }: NewsCardType) => {
           priority
         />
       </Box>
-      <Flex flexDirection="column" flex={1} gap="0.5rem">
+      <Flex flexDirection="column" flex={1} gap="0.5rem" h="full">
         <Heading
           size="md"
           as="a"
@@ -66,7 +66,7 @@ const NewsCard = ({ news }: NewsCardType) => {
           <Heading
             size="md"
             as="a"
-            href={news.source_url}
+            href={news.link}
             _hover={{ color: "blue.500" }}
             cursor="pointer"
           >
