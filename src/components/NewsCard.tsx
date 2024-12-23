@@ -17,6 +17,7 @@ const NewsCard = ({ news }: NewsCardType) => {
           style={{
             objectFit: "cover",
             objectPosition: "center",
+            
           }}
           sizes="(max-width: 768px) 100vw, 50vw"
           priority

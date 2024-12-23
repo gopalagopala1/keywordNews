@@ -52,9 +52,9 @@ const Read = () => {
             padding="1rem"
             border="1px solid"
             borderRadius="md"
-            borderColor="purple.700"
+            borderColor="black"
           >
-            <Text textTransform="uppercase" color="purple.700">
+            <Text textTransform="uppercase" color="black">
               Go to home page
             </Text>
           </Box>
@@ -64,19 +64,20 @@ const Read = () => {
   }
 
   return (
-    <Flex h="full">
+    <Flex h="full" overflow="hidden">
       <Header onOpenSearchModal={onOpenSearchModal} />
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading &&
         isMobile &&
         data &&
-        data?.map((news: NewsDataType) => (
+        // data?.map((news: NewsDataType) => (
           <NewsCardMobileView
-            news={news}
+            news={data[0]}
             isLoading={isLoading}
-            key={news.article_id}
+            key={data[0].article_id}
           />
-        ))}
+        // ))
+        }
     </Flex>
   );
 

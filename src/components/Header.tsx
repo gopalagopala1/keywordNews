@@ -1,6 +1,8 @@
 import { Box, Button, Flex, Text, useColorMode } from "@chakra-ui/react";
 import Link from "next/link";
-import { TbAdjustmentsSearch } from "react-icons/tb";
+import { IoNewspaperSharp } from "react-icons/io5";
+import { FaBookReader } from "react-icons/fa";
+
 
 type HeaderProps = {
   isHomePage?: boolean;
@@ -33,7 +35,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
         <Link href="/">
           <Flex align="center" gap="0.1rem" h="100%" justify="start">
             <Text
-              fontSize="1.5rem"
+              fontSize="1.25rem"
               fontWeight="extrabold"
               textTransform="uppercase"
               color="black"
@@ -47,13 +49,11 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
         </Button> */}
         {isHomePage ? (
           <Link href="/read">
-            <Text fontSize="1rem" color="black">
-              Read
-            </Text>
+           <FaBookReader color="black" size="1.5rem"/>
           </Link>
         ) : (
           <Box onClick={onOpenSearchModal}>
-            <TbAdjustmentsSearch size="2rem" color="#553C9A" />
+            <IoNewspaperSharp color="black" size="1.5rem"/>
           </Box>
         )}
       </Flex>
