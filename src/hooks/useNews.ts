@@ -1,11 +1,11 @@
 import { FetchNewsPayload } from "@/types/news";
 import { useDisclosure } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchNews } from "./useFetchNews";
 
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
-
+  const [nextPage, setNextPage]  = useState<number>();
   const { response , isLoading } = useFetchNews(searchParams);
   const error = response?.status == "error" ? response?.data : undefined as  {message: string}| undefined;
 
@@ -27,6 +27,19 @@ const useNews = () => {
     setSearchParams({ ...payload });
   };
 
+
+  useEffect(() => { 
+    if(response?.nextPage){
+      setNextPage(response.nextPage);
+    }
+
+  }, [response?.nextPage]);
+
+  const onLoadMore = () => {
+    setSearchParams({ ...searchParams, page: nextPage });
+  }
+  
+
   const onClear = () => {
     setSearchParams({});
   };
@@ -47,6 +60,7 @@ const useNews = () => {
     isSearchModalOpen,
     onOpenSearchModal,
     onCloseSearchModal,
+    onLoadMore
   };
 };
 

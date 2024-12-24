@@ -34,9 +34,6 @@ const NewsCardMobileView = ({ news, isLoading }: NewsCardMobileViewType) => {
   );
 };
 
-
-
-
 const MobileNewsScroll = ({ 
   initialData, 
   isLoading,

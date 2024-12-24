@@ -22,6 +22,7 @@ const Read = () => {
     isSearchModalOpen,
     onOpenSearchModal,
     onCloseSearchModal,
+    onLoadMore
   } = useNews();
 
   const { isMobile } = useDeviceSizes();
@@ -73,7 +74,7 @@ const Read = () => {
       {
         !isLoading && isMobile && data && (
           // data?.map((news: NewsDataType) => (
-            <MobileNewsScroll initialData={data} isLoading={isLoading} onLoadMore={() => {}}/>
+            <MobileNewsScroll initialData={data} isLoading={isLoading} onLoadMore={onLoadMore}/>
         )
         // ))
       }
