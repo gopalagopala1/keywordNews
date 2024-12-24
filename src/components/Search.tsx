@@ -178,15 +178,15 @@ const Search = ({
             </Flex>
           </DrawerBody>
           <DrawerFooter borderTop="1px solid" borderColor="black">
-            <Flex gap="1rem" mt="1rem" w="full">
+            <Flex gap="1rem" w="full">
               <Button
                 bg="red.500"
                 textColor="white"
                 type="submit"
                 flex="1"
                 _hover={{
-                  textColor: "red.700",
-                  backgroundColor: "white",
+                  textColor: "white",
+                  backgroundColor: "red.700",
                   border: "1px",
                   borderColor: "red.700",
                 }}
