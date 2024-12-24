@@ -53,8 +53,10 @@ const Read = () => {
             border="1px solid"
             borderRadius="md"
             borderColor="black"
+            color="black"
+            _hover={{ bg: "black", color: "white", cursor: "pointer" }}
           >
-            <Text textTransform="uppercase" color="black">
+            <Text textTransform="uppercase" >
               Go to home page
             </Text>
           </Box>
@@ -67,17 +69,25 @@ const Read = () => {
     <Flex h="full" overflow="hidden">
       <Header onOpenSearchModal={onOpenSearchModal} />
       {isMobile && isLoading && <MobileSkeleton />}
-      {!isLoading &&
-        isMobile &&
-        data &&
-        // data?.map((news: NewsDataType) => (
+      {
+        !isLoading && isMobile && data && (
+          // data?.map((news: NewsDataType) => (
           <NewsCardMobileView
             news={data[0]}
             isLoading={isLoading}
             key={data[0].article_id}
           />
+        )
         // ))
-        }
+      }
+
+      <Search
+        isOpen={isSearchModalOpen}
+        onClose={onCloseSearchModal}
+        onSearch={onSearch}
+        parseInput={parseInput}
+        onClear={onClear}
+      />
     </Flex>
   );
 

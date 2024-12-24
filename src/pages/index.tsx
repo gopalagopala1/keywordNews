@@ -61,7 +61,7 @@ const AnimatedKey = () => {
   return (
     <Flex width="full" alignItems="center" mx="auto" justifyContent="center" mt="2rem">
       <Box animation={animation} display="flex">
-        <SlKey size={isMobile? "5rem": "8.5rem"} color="white" />
+        <SlKey size={isMobile? "5rem": "8.5rem"} color="white" fontWeight="bold"/>
       </Box>
     </Flex>
   );
