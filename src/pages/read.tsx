@@ -1,6 +1,7 @@
 import EmblaCarousel from "@/components/EmblaCarousel";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
+import MobileNewsScroll from "@/components/NewsCard/MobileView";
 import NewsCardMobileView from "@/components/NewsCard/MobileView";
 import Search from "@/components/Search";
 import MobileSkeleton from "@/components/Skeleton/Mobile";
@@ -72,11 +73,7 @@ const Read = () => {
       {
         !isLoading && isMobile && data && (
           // data?.map((news: NewsDataType) => (
-          <NewsCardMobileView
-            news={data[0]}
-            isLoading={isLoading}
-            key={data[0].article_id}
-          />
+            <MobileNewsScroll initialData={data} isLoading={isLoading} onLoadMore={() => {}}/>
         )
         // ))
       }
