@@ -2,14 +2,15 @@ import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import { NewsDataType } from "@/types/news";
 import { Box, Card, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export type NewsCardType = { news: NewsDataType };
 
 const NewsCard = ({ news }: NewsCardType) => {
   const { isMobile } = useDeviceSizes();
   const mobileView = () => (
-    <Flex  h="full" gap={4} direction="column" minH="full">
-      <Box position="relative" w="100%" height="300px" minH="">
+    <Flex h="full" gap={4} direction="column" minH="full">
+      <Box position="relative" w="100%" height="60vh">
         <Image
           src={news.image_url}
           alt={news.title}
@@ -17,12 +18,11 @@ const NewsCard = ({ news }: NewsCardType) => {
           style={{
             objectFit: "cover",
             objectPosition: "center",
-            
           }}
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
-      </Box>  
+      </Box>
       <Flex flexDirection="column" flex={1} gap="0.5rem" h="full">
         <Heading
           size="md"
@@ -79,7 +79,9 @@ const NewsCard = ({ news }: NewsCardType) => {
     </Card>
   );
 
-  return isMobile ? mobileView() : desktopView();
+  return (
+    <Link href={news.link}>{isMobile ? mobileView() : desktopView()}</Link>
+  );
 };
 
 export default NewsCard;
