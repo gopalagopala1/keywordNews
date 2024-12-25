@@ -5,11 +5,15 @@ import MobileNewsScroll from "@/components/NewsCard/MobileView";
 import NewsCardMobileView from "@/components/NewsCard/MobileView";
 import Search from "@/components/Search";
 import MobileSkeleton from "@/components/Skeleton/Mobile";
+import useAnimate from "@/hooks/useAnimate";
 import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import useNews from "@/hooks/useNews";
 import { NewsDataType } from "@/types/news";
+import { ping, scrollAnimation } from "@/utils/keyFrames";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
+
 import Link from "next/link";
+import { PiMouseScrollFill } from "react-icons/pi";
 
 const Read = () => {
   const {
@@ -22,8 +26,9 @@ const Read = () => {
     isSearchModalOpen,
     onOpenSearchModal,
     onCloseSearchModal,
-    onLoadMore
+    onLoadMore,
   } = useNews();
+  const { animate } = useAnimate(3000);
 
   const { isMobile } = useDeviceSizes();
 
@@ -58,9 +63,7 @@ const Read = () => {
             color="black"
             _hover={{ bg: "black", color: "white", cursor: "pointer" }}
           >
-            <Text textTransform="uppercase" >
-              Go to home page
-            </Text>
+            <Text textTransform="uppercase">Go to home page</Text>
           </Box>
         </Link>
       </Flex>
@@ -68,16 +71,23 @@ const Read = () => {
   }
 
   return (
-    <Flex h="full" overflow="hidden">
+    <Flex h="full" direction="column">
       <Header onOpenSearchModal={onOpenSearchModal} />
       {isMobile && isLoading && <MobileSkeleton />}
       {
         !isLoading && isMobile && data && (
           // data?.map((news: NewsDataType) => (
-            <MobileNewsScroll initialData={data} isLoading={isLoading} onLoadMore={onLoadMore}/>
+          <MobileNewsScroll
+            initialData={data}
+            isLoading={isLoading}
+            onLoadMore={onLoadMore}
+          />
         )
         // ))
       }
+      <Box position="absolute" bottom="2rem" left="50%" animation={`${scrollAnimation} 1s infinite`} hidden={!animate}>
+        <PiMouseScrollFill size="2rem"/>
+      </Box>
 
       <Search
         isOpen={isSearchModalOpen}

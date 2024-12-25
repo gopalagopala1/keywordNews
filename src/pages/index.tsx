@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import { useDeviceSizes } from "@/hooks/useDeviceSizes";
+import { rotateAnimation } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import Image from "next/image";
@@ -45,23 +46,6 @@ export default function Home() {
 
 const AnimatedKey = () => {
   const { isMobile } = useDeviceSizes();
-
-  const rotateAnimation = keyframes`
-  from {
-    transform: scale(1) rotate(50deg);
-  }  
-  50% {
-    transform: rotate(-90deg);
-  }  
-  75% {
-    transform:scale(1.25)  rotate(-90deg);
-    
-  }
-  to {
-    transform: scale(1)  rotate(-90deg);
-
-  }
-`;
 
   const animation = `${rotateAnimation} 4s ease-in-out forwards`;
 

@@ -3,53 +3,87 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { MouseEvent, useEffect, useState } from "react";
 import MobileSkeleton from "../Skeleton/Mobile";
+import { slideInAnimation } from "@/utils/keyFrames";
 
-type NewsCardMobileViewType = { 
-  news: NewsDataType; 
+type NewsCardMobileViewType = {
+  news: NewsDataType;
   isLoading: boolean;
   currentIndex: number;
 };
 
-const NewsCardMobileView = ({ news, isLoading, currentIndex }: NewsCardMobileViewType) => {
+const ReadMore = () => {
+  return (
+    <Flex
+      w="fit-content"
+      h="1rem"
+      justify="center"
+      align="center"
+      position="relative"
+      fontSize="0.8rem"
+      fontWeight="extrabold"
+      padding="1rem"
+      color="white"
+    >
+      <Flex
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="gray"
+        opacity={0.5}
+        zIndex={-1}
+      />
+      Read More
+    </Flex>
+  );
+};
+
+const NewsCardMobileView = ({
+  news,
+  isLoading,
+  currentIndex,
+}: NewsCardMobileViewType) => {
   const [noOfLines, setNoOfLines] = useState(10);
 
   useEffect(() => {
     const handleResize = () => {
       setNoOfLines(window.innerHeight < 700 ? 4 : 10);
     };
-    
-    
+
     handleResize();
 
-    
-    window.addEventListener('resize', handleResize);
-    
-    
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    window.addEventListener("resize", handleResize);
 
-  
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const navigateToNews = async (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    
-    
-    sessionStorage.setItem('lastNewsIndex', currentIndex.toString());
-    
-    
+
+    sessionStorage.setItem("lastNewsIndex", currentIndex.toString());
+
     window.location.href = news.link;
-  }
+  };
 
   const mobileCard = () => (
-    <Flex 
-      h="full" 
-      direction="column" 
-      width="full" 
-      gap="1rem" 
+    <Flex
+      h="full"
+      direction="column"
+      width="full"
+      gap="1rem"
       mt="5rem"
       onClick={(e) => navigateToNews(e)}
     >
+      <Box
+        position="absolute"
+        top="52%"
+        zIndex={2}
+        animation={`${slideInAnimation} 1s`}
+      >
+        <ReadMore />
+      </Box>
       <Box h="50%" w="100%" position="relative">
         <Image
           src={news.image_url}
@@ -88,13 +122,13 @@ const MobileNewsScroll = ({
 
   useEffect(() => {
     // Check for stored index when component mounts
-    const storedIndex = sessionStorage.getItem('lastNewsIndex');
+    const storedIndex = sessionStorage.getItem("lastNewsIndex");
     if (storedIndex) {
       const index = parseInt(storedIndex);
       if (index >= 0 && index < initialData.length) {
         setCurrentIndex(index);
         // Clear the stored index after restoring
-        sessionStorage.removeItem('lastNewsIndex');
+        sessionStorage.removeItem("lastNewsIndex");
       }
     }
   }, [initialData.length]);

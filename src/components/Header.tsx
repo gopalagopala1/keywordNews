@@ -1,40 +1,17 @@
+import useAnimate from "@/hooks/useAnimate";
+import { ping } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { keyframes } from "@emotion/react";
 import Link from "next/link";
-import { useEffect, useState } from 'react';
-import { FaBookReader } from "react-icons/fa";
 import { BsFilterSquareFill } from "react-icons/bs";
-
-
-
+import { FaBookReader } from "react-icons/fa";
 
 type HeaderProps = {
   isHomePage?: boolean;
   onOpenSearchModal?: () => void;
 };
 
-const ping = keyframes`
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  75%, 100% {
-    transform: scale(1.25);
-    opacity: 0;
-  }
-`;
-
-
-
-
-
 const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
-  const [animate, setAnimate] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimate(false), 3000); // Stop animation after 3 seconds
-    return () => clearTimeout(timer);
-  }, []);
+  const { animate } = useAnimate();
 
   return (
     <Flex
@@ -70,16 +47,16 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
           </Flex>
         </Link>
         {isHomePage ? (
-          <Box animation={animate ? `${ping} 1s infinite` : ''}>
-          <Link href="/read" >
-            
-              <FaBookReader color="black" size="1.5rem"/>
-            
-          </Link>
+          <Box animation={animate ? `${ping} 1s infinite` : ""}>
+            <Link href="/read">
+              <FaBookReader color="black" size="1.5rem" />
+            </Link>
           </Box>
         ) : (
-          <Box onClick={onOpenSearchModal} animation={animate ? `${ping} 1s infinite` : ''}>
-            <BsFilterSquareFill color="black" size="1.5rem"/>
+          <Box
+            onClick={onOpenSearchModal}
+          >
+            <BsFilterSquareFill color="black" size="1.5rem" />
           </Box>
         )}
       </Flex>
