@@ -59,6 +59,7 @@ const NewsCardMobileView = ({ news, isLoading, currentIndex }: NewsCardMobileVie
             objectPosition: "center",
           }}
           alt={news.title}
+          priority
         />
       </Box>
       <Text fontSize="1.25rem" fontWeight="bold">

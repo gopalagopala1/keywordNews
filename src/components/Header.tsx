@@ -3,7 +3,9 @@ import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { FaBookReader } from "react-icons/fa";
-import { IoNewspaperSharp } from "react-icons/io5";
+import { BsFilterSquareFill } from "react-icons/bs";
+
+
 
 
 type HeaderProps = {
@@ -77,7 +79,7 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
           </Box>
         ) : (
           <Box onClick={onOpenSearchModal} animation={animate ? `${ping} 1s infinite` : ''}>
-            <IoNewspaperSharp color="black" size="1.5rem"/>
+            <BsFilterSquareFill color="black" size="1.5rem"/>
           </Box>
         )}
       </Flex>

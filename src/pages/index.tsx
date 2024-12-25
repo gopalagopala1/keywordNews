@@ -22,7 +22,7 @@ export default function Home() {
         <br /> Keyword Way
       </Text>
 
-      <AnimatedKey/>
+      <AnimatedKey />
     </Box>
   );
 
@@ -44,24 +44,41 @@ export default function Home() {
 }
 
 const AnimatedKey = () => {
-
-  const {isMobile} = useDeviceSizes();
+  const { isMobile } = useDeviceSizes();
 
   const rotateAnimation = keyframes`
   from {
-    transform: rotate(50deg);
+    transform: scale(1) rotate(50deg);
+  }  
+  50% {
+    transform: rotate(-90deg);
+  }  
+  75% {
+    transform:scale(1.25)  rotate(-90deg);
+    
   }
   to {
-    transform: rotate(-90deg);
+    transform: scale(1)  rotate(-90deg);
+
   }
 `;
 
-  const animation = `${rotateAnimation} 2s ease-in-out forwards`;
+  const animation = `${rotateAnimation} 4s ease-in-out forwards`;
 
   return (
-    <Flex width="full" alignItems="center" mx="auto" justifyContent="center" mt="2rem">
+    <Flex
+      width="full"
+      alignItems="center"
+      mx="auto"
+      justifyContent="center"
+      mt="2rem"
+    >
       <Box animation={animation} display="flex">
-        <SlKey size={isMobile? "5rem": "8.5rem"} color="white" fontWeight="bold"/>
+        <SlKey
+          size={isMobile ? "5rem" : "8.5rem"}
+          color="white"
+          fontWeight="bold"
+        />
       </Box>
     </Flex>
   );
