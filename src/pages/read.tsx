@@ -85,7 +85,7 @@ const Read = () => {
         )
         // ))
       }
-      <Box position="absolute" bottom="2rem" left="50%" animation={`${scrollAnimation} 1s infinite`} hidden={!animate}>
+      <Box position="absolute" bottom="2rem" left="50%" animation={`${scrollAnimation} 1s infinite`} hidden={!animate} zIndex={2}>
         <PiMouseScrollFill size="2rem"/>
       </Box>
 
