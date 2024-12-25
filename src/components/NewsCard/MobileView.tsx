@@ -28,7 +28,7 @@ const NewsCardMobileView = ({ news, isLoading, currentIndex }: NewsCardMobileVie
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  console.log('noOfLines', noOfLines);
+  
 
   const navigateToNews = async (e: MouseEvent) => {
     e.stopPropagation();
