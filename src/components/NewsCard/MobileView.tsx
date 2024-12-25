@@ -1,9 +1,8 @@
 import { NewsDataType } from "@/types/news";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import MobileSkeleton from "../Skeleton/Mobile";
 import Image from "next/image";
 import { MouseEvent, useEffect, useState } from "react";
-import { useRouter } from 'next/router';
+import MobileSkeleton from "../Skeleton/Mobile";
 
 type NewsCardMobileViewType = { 
   news: NewsDataType; 
@@ -12,16 +11,33 @@ type NewsCardMobileViewType = {
 };
 
 const NewsCardMobileView = ({ news, isLoading, currentIndex }: NewsCardMobileViewType) => {
-  const router = useRouter();
+  const [noOfLines, setNoOfLines] = useState(10);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setNoOfLines(window.innerHeight < 700 ? 4 : 10);
+    };
+    
+    
+    handleResize();
+
+    
+    window.addEventListener('resize', handleResize);
+    
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  console.log('noOfLines', noOfLines);
 
   const navigateToNews = async (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     
-    // Store the current index in sessionStorage before navigating
+    
     sessionStorage.setItem('lastNewsIndex', currentIndex.toString());
     
-    // Navigate to the news link in the same tab
+    
     window.location.href = news.link;
   }
 
@@ -48,7 +64,7 @@ const NewsCardMobileView = ({ news, isLoading, currentIndex }: NewsCardMobileVie
       <Text fontSize="1.25rem" fontWeight="bold">
         {news.title}
       </Text>
-      <Text noOfLines={3}>{news.description}</Text>
+      <Text noOfLines={noOfLines}>{news.description}</Text>
     </Flex>
   );
 
@@ -92,7 +108,7 @@ const MobileNewsScroll = ({
 
   const handleTouchEnd = () => {
     if (isTransitioning) return;
-    
+
     // If touchEnd is 0, it's a click event, so don't handle swipe
     if (touchEnd === 0) return;
 
