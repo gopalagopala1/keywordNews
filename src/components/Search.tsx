@@ -17,7 +17,7 @@ import {
   Input,
   InputGroup,
   Select,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 
@@ -36,12 +36,24 @@ const Search = ({
   parseInput,
   onClear,
 }: SearchType) => {
-  const [includeKeywords, setIncludeKeywords] = useState("");
-  const [excludeKeywords, setExcludeKeywords] = useState("");
+  const [searchParams, setSearchParams] = useState({
+    includeKeywords: "",
+    excludeKeywords: "",
+    country: "",
+    category: "",
+    language: "",
+  });
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const formState = {
+      includeKeywords: formData.get("includeKeywords") as string,
+      excludeKeywords: formData.get("excludeKeywords") as string,
+      country: formData.get("country") as string,
+      category: formData.get("category") as string,
+      language: formData.get("language") as string,
+    };
 
     const payload: FetchNewsPayload = {
       includeKeywords: parseInput(
@@ -55,13 +67,20 @@ const Search = ({
       language: formData.get("language") as string,
     };
 
+    setSearchParams(formState);
     onSearch(payload);
     onClose();
   };
 
   const handleClear = () => {
-    setIncludeKeywords("");
-    setExcludeKeywords("");
+    setSearchParams({
+      includeKeywords: "",
+      excludeKeywords: "",
+      country: "",
+      category: "",
+      language: "",
+    });
+
     onClear();
   };
 
@@ -91,14 +110,20 @@ const Search = ({
                     Include Keywords
                   </Text>
                   <Input
-                    value={includeKeywords}
-                    onChange={(e) => setIncludeKeywords(e.target.value)}
+                    value={searchParams.includeKeywords}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        includeKeywords: e.target.value,
+                      });
+                    }}
                     placeholder="Enter keywords to include"
                     border="1px"
                     name="includeKeywords"
                   />
                   <Text fontSize="0.6rem" fontStyle="italic" color="grey">
-                    Search for news with above keyword (space or comma separated)
+                    Search for news with above keyword (space or comma
+                    separated)
                   </Text>
                 </InputGroup>
 
@@ -107,8 +132,13 @@ const Search = ({
                     Exclude Keywords
                   </Text>
                   <Input
-                    value={excludeKeywords}
-                    onChange={(e) => setExcludeKeywords(e.target.value)}
+                    value={searchParams.excludeKeywords}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        excludeKeywords: e.target.value,
+                      });
+                    }}
                     placeholder="Enter keywords to exclude"
                     border="1px"
                     name="excludeKeywords"
@@ -126,6 +156,13 @@ const Search = ({
                     placeholder="-Select Country-"
                     border="1px"
                     name="country"
+                    value={searchParams.country}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        country: e.target.value,
+                      });
+                    }}
                   >
                     {countryCodes?.map((cc) => (
                       <option value={cc.value} key={cc.value}>
@@ -143,6 +180,13 @@ const Search = ({
                     placeholder="-Select Category-"
                     border="1px"
                     name="category"
+                    value={searchParams.category}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        category: e.target.value,
+                      });
+                    }}
                   >
                     {categoriesArray?.map((cat) => (
                       <option value={cat.value} key={cat.value}>
@@ -160,6 +204,13 @@ const Search = ({
                     placeholder="-Select Language-"
                     border="1px"
                     name="language"
+                    value={searchParams.language}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        language: e.target.value,
+                      });
+                    }}
                   >
                     {languageCodesArray?.map((lang) => (
                       <option value={lang.value} key={lang.value}>
