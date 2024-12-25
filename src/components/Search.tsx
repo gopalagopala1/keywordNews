@@ -16,14 +16,8 @@ import {
   Flex,
   Input,
   InputGroup,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
   Select,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 
@@ -104,7 +98,7 @@ const Search = ({
                     name="includeKeywords"
                   />
                   <Text fontSize="0.6rem" fontStyle="italic" color="grey">
-                    Search for news with space or comma separated keywords
+                    Search for news with above keyword( space or comma separated )
                   </Text>
                 </InputGroup>
 
@@ -120,7 +114,7 @@ const Search = ({
                     name="excludeKeywords"
                   />
                   <Text fontSize="0.6rem" fontStyle="italic" color="grey">
-                    Search for news without space or comma separated keywords
+                    Search for news without keywords ( space or comma separated )
                   </Text>
                 </InputGroup>
 
