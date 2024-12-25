@@ -80,7 +80,7 @@ const NewsCardMobileView = ({
         position="absolute"
         top="52%"
         zIndex={2}
-        animation={`${slideInAnimation} 1s`}
+        animation={`${slideInAnimation} 5s`}
       >
         <ReadMore />
       </Box>

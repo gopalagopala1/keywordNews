@@ -44,7 +44,7 @@ export const slideInAnimation = keyframes`
     from {
         opacity: 0;
     }
-  5% {
+  80% {
     transform: translateX(100%);
     opacity: 0;
   }
