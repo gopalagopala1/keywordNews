@@ -1,7 +1,9 @@
-import { Box, Button, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import Link from "next/link";
-import { IoNewspaperSharp } from "react-icons/io5";
+import { useEffect, useState } from 'react';
 import { FaBookReader } from "react-icons/fa";
+import { IoNewspaperSharp } from "react-icons/io5";
 
 
 type HeaderProps = {
@@ -9,8 +11,29 @@ type HeaderProps = {
   onOpenSearchModal?: () => void;
 };
 
+const ping = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+`;
+
+
+
+
+
 const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const [animate, setAnimate] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimate(false), 3000); // Stop animation after 3 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Flex
       h="5rem"
@@ -44,15 +67,16 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
             </Text>
           </Flex>
         </Link>
-        {/* <Button onClick={toggleColorMode}>
-          Toggle {colorMode === "light" ? "Dark" : "Light"}
-        </Button> */}
         {isHomePage ? (
-          <Link href="/read">
-           <FaBookReader color="black" size="1.5rem"/>
+          <Box animation={animate ? `${ping} 1s infinite` : ''}>
+          <Link href="/read" >
+            
+              <FaBookReader color="black" size="1.5rem"/>
+            
           </Link>
+          </Box>
         ) : (
-          <Box onClick={onOpenSearchModal}>
+          <Box onClick={onOpenSearchModal} animation={animate ? `${ping} 1s infinite` : ''}>
             <IoNewspaperSharp color="black" size="1.5rem"/>
           </Box>
         )}
