@@ -98,7 +98,7 @@ const Search = ({
                     name="includeKeywords"
                   />
                   <Text fontSize="0.6rem" fontStyle="italic" color="grey">
-                    Search for news with above keyword( space or comma separated )
+                    Search for news with above keyword (space or comma separated)
                   </Text>
                 </InputGroup>
 
@@ -114,7 +114,7 @@ const Search = ({
                     name="excludeKeywords"
                   />
                   <Text fontSize="0.6rem" fontStyle="italic" color="grey">
-                    Search for news without keywords ( space or comma separated )
+                    Search for news without keywords (space or comma separated)
                   </Text>
                 </InputGroup>
 
