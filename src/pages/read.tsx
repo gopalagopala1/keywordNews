@@ -1,16 +1,12 @@
-import EmblaCarousel from "@/components/EmblaCarousel";
 import Header from "@/components/Header";
-import NewsCard from "@/components/NewsCard";
 import MobileNewsScroll from "@/components/NewsCard/MobileView";
-import NewsCardMobileView from "@/components/NewsCard/MobileView";
 import Search from "@/components/Search";
 import MobileSkeleton from "@/components/Skeleton/Mobile";
 import useAnimate from "@/hooks/useAnimate";
 import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import useNews from "@/hooks/useNews";
-import { NewsDataType } from "@/types/news";
-import { ping, scrollAnimation } from "@/utils/keyFrames";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { scrollAnimation } from "@/utils/keyFrames";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 import Link from "next/link";
 import { PiMouseScrollFill } from "react-icons/pi";
@@ -71,22 +67,25 @@ const Read = () => {
   }
 
   return (
-    <Flex h="full" direction="column">
+    <Flex h="100vh" direction="column">
       <Header onOpenSearchModal={onOpenSearchModal} />
       {isMobile && isLoading && <MobileSkeleton />}
-      {
-        !isLoading && isMobile && data && (
-          // data?.map((news: NewsDataType) => (
-          <MobileNewsScroll
-            initialData={data}
-            isLoading={isLoading}
-            onLoadMore={onLoadMore}
-          />
-        )
-        // ))
-      }
-      <Box position="absolute" bottom="2rem" left="50%" animation={`${scrollAnimation} 1s infinite`} hidden={!animate} zIndex={2}>
-        <PiMouseScrollFill size="2rem"/>
+      {!isLoading && isMobile && data && (
+        <MobileNewsScroll
+          initialData={data}
+          isLoading={isLoading}
+          onLoadMore={onLoadMore}
+        />
+      )}
+      <Box
+        position="absolute"
+        bottom="2rem"
+        left="50%"
+        animation={`${scrollAnimation} 1s infinite`}
+        hidden={!animate}
+        zIndex={2}
+      >
+        <PiMouseScrollFill size="2rem" />
       </Box>
 
       <Search
