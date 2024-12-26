@@ -20,7 +20,8 @@ export default function Home() {
         fontWeight="bold"
       >
         Stay Informed,
-        <br /> Keyword Way
+        <br /> Keyword Way,
+        <br /> <Text as="span" color="#FEBE10" fontSize="3rem">Happy Way</Text>
       </Text>
 
       <AnimatedKey />
@@ -34,10 +35,7 @@ export default function Home() {
 
       <Flex textAlign="center" direction="column" mt="2rem">
         <Text fontSize={isMobile ? "1.25rem" : "2rem"} textAlign="start">
-          With Keyword News, discover news tailored to your interests. Search
-          for news by including the topics you care about—or{" "}
-          <strong>exclude</strong> keywords to filter out what you don’t.
-          It&apos;s news, customized to you.
+        With Keyword News, discover news tailored to your interests. Search for news by including the topics you care about—or <strong>exclude</strong> keywords to filter out what you don&#39;t. You can also search specifically for <strong>positive and constructive</strong> news. It&#39;s news, customized to you.
         </Text>
       </Flex>
     </Flex>
