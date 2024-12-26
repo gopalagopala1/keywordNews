@@ -6,6 +6,7 @@ import { useFetchNews } from "./useFetchNews";
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
   const [nextPage, setNextPage]  = useState<number>();
+  const [isHappy, setHappy] = useState(false);
   const { response , isLoading } = useFetchNews(searchParams);
   const error = response?.status == "error" ? response?.data : undefined as  {message: string}| undefined;
 
@@ -50,17 +51,24 @@ const useNews = () => {
     onClose: onCloseSearchModal,
   } = useDisclosure();
 
+  const onClickHappy = (isHappy: boolean) => {
+    setHappy(isHappy);
+    setSearchParams({ ...searchParams, isHappy });
+  }
+
   return {
     data: response?.data,
     isLoading,
     error,
+    isHappy,
+    isSearchModalOpen,
     parseInput,
     onSearch,
     onClear,
-    isSearchModalOpen,
     onOpenSearchModal,
     onCloseSearchModal,
-    onLoadMore
+    onLoadMore,
+    onClickHappy
   };
 };
 

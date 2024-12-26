@@ -33,6 +33,7 @@ export type FetchNewsPayload = {
   country?: string;
   page?: number;
   language?: string;
+  isHappy?: boolean;
 };
 
 export type Option = { label: string; value: string };

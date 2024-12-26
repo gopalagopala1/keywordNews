@@ -4,13 +4,21 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { BsFilterSquareFill } from "react-icons/bs";
 import { FaBookReader } from "react-icons/fa";
+import { ImHappy2 } from "react-icons/im";
 
 type HeaderProps = {
   isHomePage?: boolean;
+  isHappy?: boolean;
+  onClickHappy?: (isHappy: boolean) => void;
   onOpenSearchModal?: () => void;
 };
 
-const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
+const Header = ({
+  isHomePage,
+  isHappy,
+  onClickHappy,
+  onOpenSearchModal,
+}: HeaderProps) => {
   const { animate } = useAnimate();
 
   return (
@@ -53,11 +61,14 @@ const Header = ({ isHomePage, onOpenSearchModal }: HeaderProps) => {
             </Link>
           </Box>
         ) : (
-          <Box
-            onClick={onOpenSearchModal}
-          >
-            <BsFilterSquareFill color="black" size="1.5rem" />
-          </Box>
+          <Flex gap="1rem">
+            <Box onClick={() => onClickHappy?.(!isHappy)}>
+              <ImHappy2 color={isHappy ? "#FEBE10" : "black"} size="1.5rem" />
+            </Box>
+            <Box onClick={onOpenSearchModal}>
+              <BsFilterSquareFill color="black" size="1.5rem" />
+            </Box>
+          </Flex>
         )}
       </Flex>
     </Flex>

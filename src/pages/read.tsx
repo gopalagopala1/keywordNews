@@ -16,16 +16,18 @@ const Read = () => {
     data,
     isLoading,
     error,
+    isSearchModalOpen,
+    isHappy,
     onSearch,
     onClear,
     parseInput,
-    isSearchModalOpen,
     onOpenSearchModal,
     onCloseSearchModal,
     onLoadMore,
+    onClickHappy
   } = useNews();
-  const { animate } = useAnimate(3000);
 
+  const { animate } = useAnimate(3000);
   const { isMobile } = useDeviceSizes();
 
   if (error || (!data && !isLoading)) {
@@ -68,7 +70,7 @@ const Read = () => {
 
   return (
     <Flex h="100svh" direction="column">
-      <Header onOpenSearchModal={onOpenSearchModal} />
+      <Header onOpenSearchModal={onOpenSearchModal} isHappy={isHappy} onClickHappy={onClickHappy}/>
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading && isMobile && data && (
         <MobileNewsScroll
