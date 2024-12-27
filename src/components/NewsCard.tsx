@@ -12,8 +12,8 @@ const NewsCard = ({ news }: NewsCardType) => {
     <Flex h="full" gap={4} direction="column" minH="full">
       <Box position="relative" w="100%" height="60vh">
         <Image
-          src={news.image_url}
-          alt={news.title}
+          src={news?.image_url}
+          alt={news?.title}
           fill
           style={{
             objectFit: "cover",
@@ -31,10 +31,10 @@ const NewsCard = ({ news }: NewsCardType) => {
           _hover={{ color: "blue.500" }}
           cursor="pointer"
         >
-          {news.title}
+          {news?.title}
         </Heading>
 
-        <Text>{news.description}</Text>
+        <Text>{news?.description}</Text>
       </Flex>
     </Flex>
   );
@@ -51,8 +51,8 @@ const NewsCard = ({ news }: NewsCardType) => {
       <Flex padding="2rem" h="full" gap={4} direction="column" minH="full">
         <Box position="relative" w="100%" height="500px" minH="">
           <Image
-            src={news.image_url}
-            alt={news.title}
+            src={news?.image_url}
+            alt={news?.title}
             fill
             style={{
               objectFit: "cover",
@@ -66,21 +66,21 @@ const NewsCard = ({ news }: NewsCardType) => {
           <Heading
             size="md"
             as="a"
-            href={news.link}
+            href={news?.link}
             _hover={{ color: "blue.500" }}
             cursor="pointer"
           >
-            {news.title}
+            {news?.title}
           </Heading>
 
-          <Text>{news.description}</Text>
+          <Text>{news?.description}</Text>
         </Flex>
       </Flex>
     </Card>
   );
 
   return (
-    <Link href={news.link}>{isMobile ? mobileView() : desktopView()}</Link>
+    <Link href={news?.link}>{isMobile ? mobileView() : desktopView()}</Link>
   );
 };
 
