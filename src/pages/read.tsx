@@ -69,7 +69,7 @@ const Read = () => {
   }
 
   return (
-    <Flex h="100svh" direction="column">
+    <Flex h="100dvh" direction="column">
       <Header onOpenSearchModal={onOpenSearchModal} isHappy={isHappy} onClickHappy={onClickHappy}/>
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading && isMobile && data && (
