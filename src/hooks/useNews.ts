@@ -92,7 +92,7 @@ const useNews = () => {
   };
 
   return {
-    data: isHappy ? happyNewsData : newsData,
+    data: isHappy ? happyNewsData :  newsData ?? response?.data,
     isLoading,
     error,
     isHappy,

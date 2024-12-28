@@ -96,7 +96,7 @@ const Read = () => {
           <Box
             bg="black"
             mt="0.4rem"
-            borderBottom="1px solid"
+            borderBottom="3px solid"
             fontSize="0.8rem"
             onClick={() => setShowDisplayMessage(!showDisplayMessage)}
           >
