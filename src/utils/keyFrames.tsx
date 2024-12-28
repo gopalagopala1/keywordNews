@@ -28,15 +28,27 @@ export const rotateAnimation = keyframes`
   }
 `;
 
-export const scrollAnimation = keyframes`
+export const scrollLeftAnimation = keyframes`
     0% {
-        transform: translateY(0);
+        transform: translateX(0);
     }
     50% {
-        transform: translateY(5px);
+        transform: translateX(-10px);
     }
     100% {
-        transform: translateY(0);
+        transform: translateX(0);
+    }
+`;
+
+export const scrollRightAnimation = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(0);
     }
 `;
 
@@ -51,5 +63,23 @@ export const slideInAnimation = keyframes`
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+`;
+
+export const slideLeft = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+`;
+
+export const slideRight = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 `;

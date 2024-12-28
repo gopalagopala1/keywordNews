@@ -5,12 +5,6 @@ import { MouseEvent, useEffect, useState } from "react";
 import MobileSkeleton from "../Skeleton/Mobile";
 import { slideInAnimation } from "@/utils/keyFrames";
 
-type NewsCardMobileViewType = {
-  news: NewsDataType;
-  isLoading: boolean;
-  currentIndex: number;
-};
-
 const ReadMore = () => {
   return (
     <Flex
@@ -39,6 +33,12 @@ const ReadMore = () => {
   );
 };
 
+type NewsCardMobileViewType = {
+  news: NewsDataType;
+  isLoading: boolean;
+  currentIndex: number;
+};
+
 const NewsCardMobileView = ({
   news,
   isLoading,
@@ -52,18 +52,14 @@ const NewsCardMobileView = ({
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const navigateToNews = async (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-
     sessionStorage.setItem("lastNewsIndex", currentIndex.toString());
-
     window.open(news.link, "_blank");
   };
 
@@ -74,7 +70,6 @@ const NewsCardMobileView = ({
       width="full"
       gap="1rem"
       mt="5rem"
-
     >
       <Box h="50%" w="100%" position="relative">
         <Image
@@ -120,17 +115,15 @@ const MobileNewsScroll = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchMove, setTouchMove] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    // Check for stored index when component mounts
     const storedIndex = sessionStorage.getItem("lastNewsIndex");
     if (storedIndex) {
       const index = parseInt(storedIndex);
       if (index >= 0 && index < initialData.length) {
         setCurrentIndex(index);
-        // Clear the stored index after restoring
         sessionStorage.removeItem("lastNewsIndex");
       }
     }
@@ -138,64 +131,91 @@ const MobileNewsScroll = ({
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchMove(e.targetTouches[0].clientX);
+    setIsDragging(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (isDragging) {
+      setTouchMove(e.targetTouches[0].clientX);
+    }
   };
 
   const handleTouchEnd = () => {
-    if (isTransitioning || touchEnd === 0) return;
+    if (!isDragging) return;
 
-    const swipeDistance = touchStart - touchEnd;
+    const swipeDistance = touchStart - touchMove;
     const minSwipeDistance = 50;
 
     if (swipeDistance > minSwipeDistance) {
-      // Swipe left - go to next news
+      // Swipe left
       if (currentIndex < initialData.length - 1) {
-        setIsTransitioning(true);
-        setCurrentIndex((prev) => prev + 1);
+        setCurrentIndex(prev => prev + 1);
       } else if (currentIndex === initialData.length - 1) {
         onLoadMore();
       }
     } else if (swipeDistance < -minSwipeDistance) {
-      // Swipe right - go to previous news
+      // Swipe right
       if (currentIndex > 0) {
-        setIsTransitioning(true);
-        setCurrentIndex((prev) => prev - 1);
+        setCurrentIndex(prev => prev - 1);
       }
     }
 
-    setTouchStart(0);
-    setTouchEnd(0);
+    setIsDragging(false);
   };
-  useEffect(() => {
-    // Reset transition state after animation completes
-    const timer = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 300);
 
-    return () => clearTimeout(timer);
-  }, [currentIndex]);
+  const getDragOffset = () => {
+    if (!isDragging) return 0;
+    const offset = touchMove - touchStart;
+    // Add more resistance at the edges
+    if (currentIndex === 0 && offset > 0) return Math.min(offset * 0.1, 50);
+    if (currentIndex === initialData.length - 1 && offset < 0) return Math.max(offset * 0.1, -50);
+    return offset * 0.5; // Add some resistance during dragging
+  };
 
   return (
-    <Box h="100vh" w="full" overflow="hidden" position="relative">
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
+    <Box h="100vh" w="100vw" overflow="hidden" position="relative">
+      <Flex
+        position="relative"
+        direction="row"
+        width="100%"
+        height="100%"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        
       >
-        <NewsCardMobileView
-          news={initialData[currentIndex]}
-          isLoading={isLoading}
-          currentIndex={currentIndex}
-        />
-      </Box>
+        
+        <Flex
+          position="absolute"
+          top="0"
+          left={`calc(${-100 * currentIndex}% + ${getDragOffset()}px)`}
+          height="100%"
+          style={{
+            transition: isDragging ? 'none' : 'left 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            willChange: 'left',
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1rem'
+          }}
+        >
+          {initialData.map((news, index) => (
+            <Box 
+              key={index}
+              width="calc(100vw - 1rem)"
+              height="100%"
+              flexShrink={0}
+              opacity={index === currentIndex ? 1 : 0.7}
+            >
+              <NewsCardMobileView
+                news={news}
+                isLoading={isLoading}
+                currentIndex={index}
+              />
+            </Box>
+          ))}
+        </Flex>
+      </Flex>
     </Box>
   );
 };

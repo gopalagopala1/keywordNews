@@ -5,11 +5,11 @@ import MobileSkeleton from "@/components/Skeleton/Mobile";
 import useAnimate from "@/hooks/useAnimate";
 import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import useNews from "@/hooks/useNews";
-import { scrollAnimation } from "@/utils/keyFrames";
+import { scrollLeftAnimation, scrollRightAnimation } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { FaHandPointLeft, FaHandPointRight } from "react-icons/fa6";
 
 import Link from "next/link";
-import { PiMouseScrollFill } from "react-icons/pi";
 
 const Read = () => {
   const {
@@ -24,7 +24,7 @@ const Read = () => {
     onOpenSearchModal,
     onCloseSearchModal,
     onLoadMore,
-    onClickHappy
+    onClickHappy,
   } = useNews();
 
   const { animate } = useAnimate(3000);
@@ -70,7 +70,11 @@ const Read = () => {
 
   return (
     <Flex h="100dvh" direction="column">
-      <Header onOpenSearchModal={onOpenSearchModal} isHappy={isHappy} onClickHappy={onClickHappy}/>
+      <Header
+        onOpenSearchModal={onOpenSearchModal}
+        isHappy={isHappy}
+        onClickHappy={onClickHappy}
+      />
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading && isMobile && data && (
         <MobileNewsScroll
@@ -79,17 +83,22 @@ const Read = () => {
           onLoadMore={onLoadMore}
         />
       )}
-      <Box
-        position="absolute"
-        bottom="2rem"
-        left="50%"
-        animation={`${scrollAnimation} 1s infinite`}
-        hidden={!animate}
-        zIndex={2}
-      >
-        <PiMouseScrollFill size="2rem" />
-      </Box>
-
+      <Flex gap="1rem" bottom="10%" position="absolute" left="38%">
+        <Box
+          animation={`${scrollLeftAnimation} 1s infinite`}
+          hidden={!animate}
+          zIndex={2}
+        >
+          <FaHandPointLeft size="3rem" color="#84ACFA"/>
+        </Box>
+        <Box
+          animation={`${scrollRightAnimation} 1s infinite`}
+          hidden={!animate}
+          zIndex={2}
+        >
+          <FaHandPointRight size="3rem" color="#84ACFA"/>
+        </Box>
+      </Flex>
       <Search
         isOpen={isSearchModalOpen}
         onClose={onCloseSearchModal}
