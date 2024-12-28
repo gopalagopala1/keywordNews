@@ -74,7 +74,7 @@ const NewsCardMobileView = ({
       width="full"
       gap="1rem"
       mt="5rem"
-      onClick={(e) => navigateToNews(e)}
+      // onClick={(e) => navigateToNews(e)}
      
     >
       <Box
@@ -93,8 +93,6 @@ const NewsCardMobileView = ({
           style={{
             objectFit: "cover",
             objectPosition: "center",
-            borderBottomLeftRadius: "1rem",
-            borderBottomRightRadius: "1rem",
           }}
           alt={news?.title}
           
