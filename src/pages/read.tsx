@@ -18,6 +18,9 @@ const Read = () => {
     error,
     isSearchModalOpen,
     isHappy,
+    displayMessage,
+    showDisplayMessage,
+    setShowDisplayMessage,
     onSearch,
     onClear,
     parseInput,
@@ -75,6 +78,26 @@ const Read = () => {
         isHappy={isHappy}
         onClickHappy={onClickHappy}
       />
+      {displayMessage && showDisplayMessage &&(
+        <Box
+          bg="red.500"
+          position="fixed"
+          zIndex="5"
+          width="full"
+          top="5rem"
+          ml="-1rem"
+          textAlign="center"
+          pt="0.5rem"
+        >
+          <Text color="white" fontSize="0.75rem" fontWeight="bold">
+            {displayMessage}
+          </Text>
+          <Box bg="black" mt="0.4rem" fontSize="0.8rem" onClick={() =>setShowDisplayMessage(!showDisplayMessage)}>
+            {" "}
+            <Text color="white">Close</Text>
+          </Box>
+        </Box>
+      )}
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading && isMobile && data && (
         <MobileNewsScroll
@@ -89,14 +112,14 @@ const Read = () => {
           hidden={!animate}
           zIndex={2}
         >
-          <FaHandPointLeft size="3rem" color="#84ACFA"/>
+          <FaHandPointLeft size="3rem" color="#84ACFA" />
         </Box>
         <Box
           animation={`${scrollRightAnimation} 1s infinite`}
           hidden={!animate}
           zIndex={2}
         >
-          <FaHandPointRight size="3rem" color="#84ACFA"/>
+          <FaHandPointRight size="3rem" color="#84ACFA" />
         </Box>
       </Flex>
       <Search

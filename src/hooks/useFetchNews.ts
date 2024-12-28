@@ -5,7 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 type FetchNewsResponseType = {
   data: NewsDataType[],
   status: string,
-  nextPage: number
+  nextPage: number,
+  errorMessage: string
+
 }
 
 async function fetchNews(payload: FetchNewsPayload): Promise<FetchNewsResponseType> {
@@ -16,7 +18,9 @@ async function fetchNews(payload: FetchNewsPayload): Promise<FetchNewsResponseTy
   const data = response?.data?.results;
   const status = response?.data?.status;
   const nextPage = response?.data?.nextPage;
-  return {data, status, nextPage};
+  const errorMessage = response?.data?.errorMessage || ''
+
+  return {data, status, nextPage, errorMessage};
 };
 
 export const useFetchNews = (payload: FetchNewsPayload) => {

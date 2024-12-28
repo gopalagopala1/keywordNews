@@ -5,10 +5,15 @@ import { useFetchNews } from "./useFetchNews";
 
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
-  const [nextPage, setNextPage]  = useState<number>();
+  const [nextPage, setNextPage] = useState<number>();
   const [isHappy, setHappy] = useState(false);
-  const { response , isLoading } = useFetchNews(searchParams);
-  const error = response?.status == "error" ? response?.data : undefined as  {message: string}| undefined;
+  const { response, isLoading } = useFetchNews(searchParams);
+  const error =
+    response?.status == "error"
+      ? response?.data
+      : (undefined as { message: string } | undefined);
+  const displayMessage = response?.errorMessage || "";
+  const [showDisplayMessage, setShowDisplayMessage] = useState<boolean>(true);
 
   const parseInput = (input: string) => {
     // handle empty string
@@ -25,21 +30,19 @@ const useNews = () => {
   };
 
   const onSearch = (payload: FetchNewsPayload) => {
-    setSearchParams({ ...payload });
+    setHappy(false)
+    setSearchParams({ ...payload , isHappy: false});
   };
 
-
-  useEffect(() => { 
-    if(response?.nextPage){
+  useEffect(() => {
+    if (response?.nextPage) {
       setNextPage(response.nextPage);
     }
-
   }, [response?.nextPage]);
 
   const onLoadMore = () => {
     setSearchParams({ ...searchParams, page: nextPage });
-  }
-  
+  };
 
   const onClear = () => {
     setSearchParams({});
@@ -54,7 +57,7 @@ const useNews = () => {
   const onClickHappy = (isHappy: boolean) => {
     setHappy(isHappy);
     setSearchParams({ ...searchParams, isHappy });
-  }
+  };
 
   return {
     data: response?.data,
@@ -62,13 +65,16 @@ const useNews = () => {
     error,
     isHappy,
     isSearchModalOpen,
+    displayMessage,
+    showDisplayMessage,
+    setShowDisplayMessage,
     parseInput,
     onSearch,
     onClear,
     onOpenSearchModal,
     onCloseSearchModal,
     onLoadMore,
-    onClickHappy
+    onClickHappy,
   };
 };
 

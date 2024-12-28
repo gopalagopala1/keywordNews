@@ -29,37 +29,37 @@ export default function Home() {
   );
 
   return (
-    // <Flex direction="column" width="full" height="full" position="relative">
-    //   <Header isHomePage={true} />
-    //   {heroText()}
+    <Flex direction="column" width="full" height="full" position="relative">
+      <Header isHomePage={true} />
+      {heroText()}
 
-    //   <Flex textAlign="center" direction="column" mt="2rem">
-    //     <Text fontSize={isMobile ? "1.25rem" : "2rem"} textAlign="start">
-    //     With Keyword News, discover news tailored to your interests. Search for news by including the topics you care about—or <strong>exclude</strong> keywords to filter out what you don&#39;t. You can also search specifically for <strong>positive and constructive</strong> news. It&#39;s news, customized to you.
-    //     </Text>
-    //   </Flex>
-    // </Flex>
-    // under maintenance
-    <Flex
-      direction="column"
-      width="full"
-      height="full"
-      position="relative"
-      justifyContent="center"
-      alignItems="center" 
-
-    >
-  
-      <Text
-        fontSize={isMobile ? "1.25rem" : "2rem"}
-        textAlign="center"
-        mt="2rem"
-        color="red.500"
-        fontWeight="extrabold"
-      >
-        We are currently under maintenance. Please check back later.
-      </Text>
+      <Flex textAlign="center" direction="column" mt="2rem">
+        <Text fontSize={isMobile ? "1.25rem" : "2rem"} textAlign="start">
+        With Keyword News, discover news tailored to your interests. Search for news by including the topics you care about—or <strong>exclude</strong> keywords to filter out what you don&#39;t. You can also search specifically for <strong>positive and constructive</strong> news. It&#39;s news, customized to you.
+        </Text>
+      </Flex>
     </Flex>
+    // under maintenance
+    // <Flex
+    //   direction="column"
+    //   width="full"
+    //   height="full"
+    //   position="relative"
+    //   justifyContent="center"
+    //   alignItems="center" 
+
+    // >
+  
+    //   <Text
+    //     fontSize={isMobile ? "1.25rem" : "2rem"}
+    //     textAlign="center"
+    //     mt="2rem"
+    //     color="red.500"
+    //     fontWeight="extrabold"
+    //   >
+    //     We are currently under maintenance. Please check back later.
+    //   </Text>
+    // </Flex>
   );
 }
 
