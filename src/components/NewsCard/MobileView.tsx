@@ -75,6 +75,7 @@ const NewsCardMobileView = ({
       gap="1rem"
       mt="5rem"
       onClick={(e) => navigateToNews(e)}
+     
     >
       <Box
         position="absolute"
@@ -86,20 +87,23 @@ const NewsCardMobileView = ({
       </Box>
       <Box h="50%" w="100%" position="relative">
         <Image
-          src={news.image_url}
+          loading="lazy"
+          src={news?.image_url}
           fill
           style={{
             objectFit: "cover",
             objectPosition: "center",
+            borderBottomLeftRadius: "1rem",
+            borderBottomRightRadius: "1rem",
           }}
-          alt={news.title}
-          priority
+          alt={news?.title}
+          
         />
       </Box>
       <Text fontSize="1.25rem" fontWeight="bold">
-        {news.title}
+        {news?.title}
       </Text>
-      <Text noOfLines={noOfLines}>{news.description}</Text>
+      <Text noOfLines={noOfLines}>{news?.description}</Text>
     </Flex>
   );
 
@@ -134,24 +138,21 @@ const MobileNewsScroll = ({
   }, [initialData.length]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientY);
+    setTouchStart(e.targetTouches[0].clientX);
   };
-
+  
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientY);
+    setTouchEnd(e.targetTouches[0].clientX);
   };
-
+ 
   const handleTouchEnd = () => {
-    if (isTransitioning) return;
-
-    // If touchEnd is 0, it's a click event, so don't handle swipe
-    if (touchEnd === 0) return;
-
+    if (isTransitioning || touchEnd === 0) return;
+  
     const swipeDistance = touchStart - touchEnd;
     const minSwipeDistance = 50;
-
+  
     if (swipeDistance > minSwipeDistance) {
-      // Swipe up - go to next news
+      // Swipe left - go to next news
       if (currentIndex < initialData.length - 1) {
         setIsTransitioning(true);
         setCurrentIndex((prev) => prev + 1);
@@ -159,17 +160,16 @@ const MobileNewsScroll = ({
         onLoadMore();
       }
     } else if (swipeDistance < -minSwipeDistance) {
-      // Swipe down - go to previous news
+      // Swipe right - go to previous news
       if (currentIndex > 0) {
         setIsTransitioning(true);
         setCurrentIndex((prev) => prev - 1);
       }
     }
-
+  
     setTouchStart(0);
     setTouchEnd(0);
   };
-
   useEffect(() => {
     // Reset transition state after animation completes
     const timer = setTimeout(() => {
