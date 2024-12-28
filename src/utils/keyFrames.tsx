@@ -44,12 +44,12 @@ export const slideInAnimation = keyframes`
     from {
         opacity: 0;
     }
-  80% {
-    transform: translateX(100%);
+  50% {
+    transform: translateY(70%);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateY(0);
     opacity: 1;
   }
 `;

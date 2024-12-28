@@ -14,7 +14,7 @@ type NewsCardMobileViewType = {
 const ReadMore = () => {
   return (
     <Flex
-      w="fit-content"
+      w="100%"
       h="1rem"
       justify="center"
       align="center"
@@ -64,7 +64,7 @@ const NewsCardMobileView = ({
 
     sessionStorage.setItem("lastNewsIndex", currentIndex.toString());
 
-    window.location.href = news.link;
+    window.open(news.link, "_blank");
   };
 
   const mobileCard = () => (
@@ -74,17 +74,8 @@ const NewsCardMobileView = ({
       width="full"
       gap="1rem"
       mt="5rem"
-      // onClick={(e) => navigateToNews(e)}
-     
+
     >
-      <Box
-        position="absolute"
-        top="52%"
-        zIndex={2}
-        animation={`${slideInAnimation} 5s`}
-      >
-        <ReadMore />
-      </Box>
       <Box h="50%" w="100%" position="relative">
         <Image
           loading="lazy"
@@ -95,8 +86,18 @@ const NewsCardMobileView = ({
             objectPosition: "center",
           }}
           alt={news?.title}
-          
         />
+
+        <Box
+          position="absolute"
+          bottom="4%"
+          zIndex={2}
+          animation={`${slideInAnimation} 5s`}
+          width="100%"
+          onClick={(e) => navigateToNews(e)}
+        >
+          <ReadMore />
+        </Box>
       </Box>
       <Text fontSize="1.25rem" fontWeight="bold">
         {news?.title}
@@ -138,17 +139,17 @@ const MobileNewsScroll = ({
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
-  
+
   const handleTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
- 
+
   const handleTouchEnd = () => {
     if (isTransitioning || touchEnd === 0) return;
-  
+
     const swipeDistance = touchStart - touchEnd;
     const minSwipeDistance = 50;
-  
+
     if (swipeDistance > minSwipeDistance) {
       // Swipe left - go to next news
       if (currentIndex < initialData.length - 1) {
@@ -164,7 +165,7 @@ const MobileNewsScroll = ({
         setCurrentIndex((prev) => prev - 1);
       }
     }
-  
+
     setTouchStart(0);
     setTouchEnd(0);
   };
