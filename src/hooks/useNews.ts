@@ -36,7 +36,7 @@ const useNews = () => {
   useEffect(() => {
     
     if (response && response.data && response?.status !== "error") {
-      if (response.errorMessage) {
+      if (!response.errorMessage) {
         const updatedData = _.uniqBy(
           [...(newsData ?? []), ...response?.data],
           "article_id"
@@ -63,6 +63,7 @@ const useNews = () => {
 
   const onSearch = (payload: FetchNewsPayload) => {
     setHappy(false);
+    setShowDisplayMessage(true);
     setSearchParams({ ...payload, isHappy: false });
   };
 

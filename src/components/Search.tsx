@@ -85,20 +85,21 @@ const Search = ({
   };
 
   const mobileView = () => (
-    <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton />
+    <Drawer isOpen={isOpen} placement="bottom" onClose={onClose} >
+      <DrawerOverlay width="full"/>
+      <DrawerContent minW="full">
+        <DrawerCloseButton  />
         <DrawerHeader
           fontSize="1.25rem"
           borderBottom="1px solid"
           borderColor="black"
+          width="full"
         >
           Search
         </DrawerHeader>
 
         <form onSubmit={handleFormSubmit} style={{ height: "100%" }}>
-          <DrawerBody py="1.5rem">
+          <DrawerBody py="1.5rem" width="full">
             <Flex
               direction="column"
               justifyContent="space-between"
