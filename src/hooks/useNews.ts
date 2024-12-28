@@ -34,9 +34,11 @@ const useNews = () => {
   };
 
   useEffect(() => {
-    
     if (response && response.data && response?.status !== "error") {
-      if (!response.errorMessage) {
+      if (isHappy) {
+        setInitialIndex(0);
+        setHappyNewsData([...response?.data]);
+      } else if (!response.errorMessage) {
         const updatedData = _.uniqBy(
           [...(newsData ?? []), ...response?.data],
           "article_id"
@@ -44,13 +46,10 @@ const useNews = () => {
         const initialIndex = newsData?.length as number;
         setInitialIndex(initialIndex);
         setNewsData(updatedData);
-      } else if (!response.errorMessage) {
+      } else if (response.errorMessage) {
         setInitialIndex(0);
-        if (isHappy) {
-          setHappyNewsData([...response?.data]);
-        } else {
-          setNewsData([...response?.data]);
-        }
+
+        setNewsData([...response?.data]);
       }
     } else if (
       response &&
@@ -93,7 +92,7 @@ const useNews = () => {
   };
 
   return {
-    data: isHappy ? happyNewsData :  newsData ?? response?.data,
+    data: isHappy ? happyNewsData : newsData ?? response?.data,
     isLoading,
     error,
     isHappy,
