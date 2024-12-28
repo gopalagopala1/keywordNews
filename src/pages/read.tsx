@@ -20,6 +20,7 @@ const Read = () => {
     isHappy,
     displayMessage,
     showDisplayMessage,
+    initialIndex,
     setShowDisplayMessage,
     onSearch,
     onClear,
@@ -78,7 +79,7 @@ const Read = () => {
         isHappy={isHappy}
         onClickHappy={onClickHappy}
       />
-      {displayMessage && showDisplayMessage &&(
+      {displayMessage && showDisplayMessage && (
         <Box
           bg="red.500"
           position="fixed"
@@ -92,7 +93,13 @@ const Read = () => {
           <Text color="white" fontSize="0.75rem" fontWeight="bold">
             {displayMessage}
           </Text>
-          <Box bg="black" mt="0.4rem" fontSize="0.8rem" onClick={() =>setShowDisplayMessage(!showDisplayMessage)}>
+          <Box
+            bg="black"
+            mt="0.4rem"
+            borderBottom="1px solid"
+            fontSize="0.8rem"
+            onClick={() => setShowDisplayMessage(!showDisplayMessage)}
+          >
             {" "}
             <Text color="white">Close</Text>
           </Box>
@@ -104,6 +111,7 @@ const Read = () => {
           initialData={data}
           isLoading={isLoading}
           onLoadMore={onLoadMore}
+          initialIndex={initialIndex}
         />
       )}
       <Flex gap="1rem" bottom="10%" position="absolute" left="38%">

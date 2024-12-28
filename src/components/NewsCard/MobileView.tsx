@@ -108,12 +108,14 @@ const MobileNewsScroll = ({
   initialData,
   isLoading,
   onLoadMore,
+  initialIndex
 }: {
   initialData: NewsDataType[];
   isLoading: boolean;
   onLoadMore: () => void;
+  initialIndex: number
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex ?? 0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchMove, setTouchMove] = useState(0);
   const [isDragging, setIsDragging] = useState(false);

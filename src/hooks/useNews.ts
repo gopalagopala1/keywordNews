@@ -1,19 +1,23 @@
-import { FetchNewsPayload } from "@/types/news";
+import { FetchNewsPayload, NewsDataType } from "@/types/news";
 import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useFetchNews } from "./useFetchNews";
+import _ from "lodash";
 
 const useNews = () => {
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
   const [nextPage, setNextPage] = useState<number>();
   const [isHappy, setHappy] = useState(false);
+  const [newsData, setNewsData] = useState<NewsDataType[]>();
+  const [happyNewsData, setHappyNewsData] = useState<NewsDataType[]>();
+  const [showDisplayMessage, setShowDisplayMessage] = useState<boolean>(true);
+  const [initialIndex, setInitialIndex] = useState<number>(0);
   const { response, isLoading } = useFetchNews(searchParams);
+  const displayMessage = response?.errorMessage || "";
   const error =
     response?.status == "error"
       ? response?.data
       : (undefined as { message: string } | undefined);
-  const displayMessage = response?.errorMessage || "";
-  const [showDisplayMessage, setShowDisplayMessage] = useState<boolean>(true);
 
   const parseInput = (input: string) => {
     // handle empty string
@@ -29,9 +33,37 @@ const useNews = () => {
       .map((item) => item.toLowerCase());
   };
 
+  useEffect(() => {
+    
+    if (response && response.data && response?.status !== "error") {
+      if (response.errorMessage) {
+        const updatedData = _.uniqBy(
+          [...(newsData ?? []), ...response?.data],
+          "article_id"
+        );
+        const initialIndex = newsData?.length as number;
+        setInitialIndex(initialIndex);
+        setNewsData(updatedData);
+      } else if (!response.errorMessage) {
+        setInitialIndex(0);
+        if (isHappy) {
+          setHappyNewsData([...response?.data]);
+        } else {
+          setNewsData([...response?.data]);
+        }
+      }
+    } else if (
+      response &&
+      response.data &&
+      response.errorMessage &&
+      response?.status !== "error"
+    ) {
+    }
+  }, [response, isHappy]);
+
   const onSearch = (payload: FetchNewsPayload) => {
-    setHappy(false)
-    setSearchParams({ ...payload , isHappy: false});
+    setHappy(false);
+    setSearchParams({ ...payload, isHappy: false });
   };
 
   useEffect(() => {
@@ -60,13 +92,14 @@ const useNews = () => {
   };
 
   return {
-    data: response?.data,
+    data: isHappy ? happyNewsData : newsData,
     isLoading,
     error,
     isHappy,
     isSearchModalOpen,
     displayMessage,
     showDisplayMessage,
+    initialIndex,
     setShowDisplayMessage,
     parseInput,
     onSearch,
