@@ -10,9 +10,14 @@ export default function Home() {
   const { isMobile } = useDeviceSizes();
 
   const heroText = () => (
-    <Box bg="red.500" width="full" height="62vh" position="relative">
+    <Box
+      bg="red.500"
+      width="full"
+      height={isMobile ? "62vh" : "75vh"}
+      position="relative"
+    >
       <Text
-        fontSize={isMobile ? "2.5rem" : "4rem"}
+        fontSize={isMobile ? "2.5rem" : "3rem"}
         color="white"
         mt="8rem"
         textAlign="center"
@@ -21,7 +26,10 @@ export default function Home() {
       >
         Stay Informed,
         <br /> Keyword Way,
-        <br /> <Text as="span" color="#FEBE10" fontSize="3rem">Happy Way</Text>
+        <br />{" "}
+        <Text as="span" color="#FEBE10" fontSize={isMobile ? "3rem" : "5rem"}>
+          Happy Way
+        </Text>
       </Text>
 
       <AnimatedKey />
@@ -35,7 +43,14 @@ export default function Home() {
 
       <Flex textAlign="center" direction="column" mt="2rem">
         <Text fontSize={isMobile ? "1.25rem" : "2rem"} textAlign="start">
-        With Keyword News, discover news tailored to your interests. Search for news by including the topics you care about—or <strong>exclude</strong> keywords to filter out what you don&#39;t. You can also search specifically for <strong>positive and constructive</strong> news. It&#39;s news, customized to you.
+          With Keyword News, discover news tailored to your interests. Search
+          for news by including the topics you care about—or{" "}
+          <strong>exclude</strong> keywords to filter out what you don&#39;t.
+          You can also search specifically for{" "}
+          <strong style={{ color: "#FEBE10"  }}>
+            positive and constructive
+          </strong>{" "}
+          news. It&#39;s news, customized to you.
         </Text>
       </Flex>
     </Flex>
@@ -46,10 +61,10 @@ export default function Home() {
     //   height="full"
     //   position="relative"
     //   justifyContent="center"
-    //   alignItems="center" 
+    //   alignItems="center"
 
     // >
-  
+
     //   <Text
     //     fontSize={isMobile ? "1.25rem" : "2rem"}
     //     textAlign="center"

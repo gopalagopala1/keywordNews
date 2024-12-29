@@ -39,31 +39,30 @@ const useNews = () => {
         setInitialIndex(0);
         setHappyNewsData([...response?.data]);
       } else if (!response.errorMessage) {
+        const newData = response?.data ?? [];
         const updatedData = _.uniqBy(
-          [...(newsData ?? []), ...response?.data],
+          [...(newsData ?? []), ...newData],
           "article_id"
         );
-        const initialIndex = newsData?.length as number;
-        setInitialIndex(initialIndex);
         setNewsData(updatedData);
+        
+        // If this is new content being loaded, set index to start of new content
+        if (searchParams.page && searchParams.page > 1) {
+          const existingDataLength = newsData?.length ?? 0;
+          setInitialIndex(existingDataLength);
+        }
       } else if (response.errorMessage) {
         setInitialIndex(0);
-
         setNewsData([...response?.data]);
       }
-    } else if (
-      response &&
-      response.data &&
-      response.errorMessage &&
-      response?.status !== "error"
-    ) {
     }
   }, [response, isHappy]);
-
+  
   const onSearch = (payload: FetchNewsPayload) => {
     setHappy(false);
     setShowDisplayMessage(true);
     setSearchParams({ ...payload, isHappy: false });
+    setInitialIndex(0); // Reset index on new search
   };
 
   useEffect(() => {
@@ -78,6 +77,7 @@ const useNews = () => {
 
   const onClear = () => {
     setSearchParams({});
+    setInitialIndex(0); // Reset index on clear
   };
 
   const {

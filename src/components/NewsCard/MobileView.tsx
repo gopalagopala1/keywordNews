@@ -115,11 +115,17 @@ const MobileNewsScroll = ({
   onLoadMore: () => void;
   initialIndex: number
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex ?? 0);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState(0);
   const [touchMove, setTouchMove] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
+  // Update currentIndex when initialIndex changes
+  useEffect(() => {
+    setCurrentIndex(initialIndex);
+  }, [initialIndex]);
+
+  // Update currentIndex when new data is loaded
   useEffect(() => {
     const storedIndex = sessionStorage.getItem("lastNewsIndex");
     if (storedIndex) {
@@ -185,16 +191,14 @@ const MobileNewsScroll = ({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        
       >
-        
         <Flex
           position="absolute"
           top="0"
           left={`calc(${-100 * currentIndex}% + ${getDragOffset()}px)`}
           height="100%"
           style={{
-            transition: isDragging ? 'none' : 'left 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            transition: isDragging ? 'none' : 'left 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             willChange: 'left',
             display: 'flex',
             flexDirection: 'row',
