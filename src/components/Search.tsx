@@ -4,6 +4,7 @@ import {
   countryCodes,
   languageCodesArray,
 } from "@/utils/constants";
+import newsUtils from "@/utils/utils";
 import {
   Button,
   Drawer,
@@ -25,7 +26,6 @@ type SearchType = {
   isOpen: boolean;
   onClose: () => void;
   onSearch: (payload: FetchNewsPayload) => void;
-  parseInput: (inputString: string) => string[];
   onClear: () => void;
 };
 
@@ -33,7 +33,6 @@ const Search = ({
   isOpen,
   onClose,
   onSearch,
-  parseInput,
   onClear,
 }: SearchType) => {
   const [searchParams, setSearchParams] = useState({
@@ -56,10 +55,10 @@ const Search = ({
     };
 
     const payload: FetchNewsPayload = {
-      includeKeywords: parseInput(
+      includeKeywords: newsUtils.parseInput(
         (formData.get("includeKeywords") as string) || ""
       ),
-      excludeKeywords: parseInput(
+      excludeKeywords: newsUtils.parseInput(
         (formData.get("excludeKeywords") as string) || ""
       ),
       country: formData.get("country") as string,

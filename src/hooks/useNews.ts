@@ -5,13 +5,17 @@ import { useFetchNews } from "./useFetchNews";
 import _ from "lodash";
 
 const useNews = () => {
+  const [newsData, setNewsData] = useState<NewsDataType[]>();
+  
+  const [happyNewsData, setHappyNewsData] = useState<NewsDataType[]>();
+  const [isHappy, setHappy] = useState(false);
+  
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
   const [nextPage, setNextPage] = useState<number>();
-  const [isHappy, setHappy] = useState(false);
-  const [newsData, setNewsData] = useState<NewsDataType[]>();
-  const [happyNewsData, setHappyNewsData] = useState<NewsDataType[]>();
+  
   const [showDisplayMessage, setShowDisplayMessage] = useState<boolean>(true);
   const [initialIndex, setInitialIndex] = useState<number>(0);
+  
   const { response, isLoading } = useFetchNews(searchParams);
   const displayMessage = response?.errorMessage || "";
   const error =
@@ -19,19 +23,7 @@ const useNews = () => {
       ? response?.data
       : (undefined as { message: string } | undefined);
 
-  const parseInput = (input: string) => {
-    // handle empty string
-    if (!input?.trim()) {
-      return [];
-    }
 
-    // Split by comma first, then by space, and flatten the result
-    return input
-      .split(",")
-      .flatMap((item) => item.trim().split(" "))
-      .filter((item) => item.length > 0)
-      .map((item) => item.toLowerCase());
-  };
 
   useEffect(() => {
     if (response && response.data && response?.status !== "error") {
@@ -101,7 +93,6 @@ const useNews = () => {
     showDisplayMessage,
     initialIndex,
     setShowDisplayMessage,
-    parseInput,
     onSearch,
     onClear,
     onOpenSearchModal,

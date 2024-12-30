@@ -24,7 +24,6 @@ const Read = () => {
     setShowDisplayMessage,
     onSearch,
     onClear,
-    parseInput,
     onOpenSearchModal,
     onCloseSearchModal,
     onLoadMore,
@@ -134,7 +133,6 @@ const Read = () => {
         isOpen={isSearchModalOpen}
         onClose={onCloseSearchModal}
         onSearch={onSearch}
-        parseInput={parseInput}
         onClear={onClear}
       />
     </Flex>
