@@ -2,18 +2,29 @@ import Header from "@/components/Header";
 import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import { rotateAnimation } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { keyframes } from "@emotion/react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { SlKey } from "react-icons/sl";
 
 export default function Home() {
-  const { isMobile } = useDeviceSizes();
+  const [height, setHeight] = useState("62vh")
+  
+   useEffect(() => {
+      const handleResize = () => {
+        setHeight(window.innerHeight < 700 ? "70vh" : "62vh");
+      };
+  
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+  const {isMobile} = useDeviceSizes();
 
   const heroText = () => (
     <Box
       bg="red.500"
       width="full"
-      height={isMobile ? "62vh" : "75vh"}
+      minHeight={isMobile ? height : "75vh"}
       position="relative"
     >
       <Text

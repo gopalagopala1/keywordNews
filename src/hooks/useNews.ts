@@ -1,21 +1,23 @@
 import { FetchNewsPayload, NewsDataType } from "@/types/news";
 import { useDisclosure } from "@chakra-ui/react";
+import _ from "lodash";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useFetchNews } from "./useFetchNews";
-import _ from "lodash";
+import useMobileView from "./useMobileView";
 
 const useNews = () => {
   const [newsData, setNewsData] = useState<NewsDataType[]>();
-  
+
   const [happyNewsData, setHappyNewsData] = useState<NewsDataType[]>();
   const [isHappy, setHappy] = useState(false);
-  
+
   const [searchParams, setSearchParams] = useState<FetchNewsPayload>({});
   const [nextPage, setNextPage] = useState<number>();
-  
+
   const [showDisplayMessage, setShowDisplayMessage] = useState<boolean>(true);
-  const [initialIndex, setInitialIndex] = useState<number>(0);
-  
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   const { response, isLoading } = useFetchNews(searchParams);
   const displayMessage = response?.errorMessage || "";
   const error =
@@ -23,38 +25,53 @@ const useNews = () => {
       ? response?.data
       : (undefined as { message: string } | undefined);
 
-
+  const router = useRouter();
 
   useEffect(() => {
-    if (response && response.data && response?.status !== "error") {
+    if (!response && !isLoading && !(!!isHappy)) {
+      debugger
+      router.push("/error");
+    } else if (response && response.data && response?.status !== "error") {
       if (isHappy) {
-        setInitialIndex(0);
+        setCurrentIndex(0);
         setHappyNewsData([...response?.data]);
       } else if (!response.errorMessage) {
         const newData = response?.data ?? [];
-        const updatedData = _.uniqBy(
-          [...(newsData ?? []), ...newData],
-          "article_id"
-        );
-        setNewsData(updatedData);
-        
-        // If this is new content being loaded, set index to start of new content
-        if (searchParams.page && searchParams.page > 1) {
-          const existingDataLength = newsData?.length ?? 0;
-          setInitialIndex(existingDataLength);
+
+        let updatedData = [];
+        if (_.isEmpty(searchParams)) {
+          updatedData = _.uniqBy(
+            [...(newsData ?? []), ...newData],
+            "article_id"
+          );
+        } else {
+          updatedData = _.uniqBy(
+            [...newData, ...(newsData ?? [])],
+            "article_id"
+          );
         }
+
+        setNewsData(updatedData);
+
+        // setting next page
+        if (response?.nextPage) {
+          setNextPage(response.nextPage);
+        }
+
+        const existingDataLength = newsData?.length ?? 0;
+        setCurrentIndex(existingDataLength);
       } else if (response.errorMessage) {
-        setInitialIndex(0);
+        setCurrentIndex(0);
         setNewsData([...response?.data]);
       }
     }
-  }, [response, isHappy]);
-  
+  }, [response, isHappy, isLoading]);
+
   const onSearch = (payload: FetchNewsPayload) => {
     setHappy(false);
     setShowDisplayMessage(true);
     setSearchParams({ ...payload, isHappy: false });
-    setInitialIndex(0); // Reset index on new search
+    setCurrentIndex(0); // Reset index on new search
   };
 
   useEffect(() => {
@@ -65,11 +82,12 @@ const useNews = () => {
 
   const onLoadMore = () => {
     setSearchParams({ ...searchParams, page: nextPage });
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const onClear = () => {
     setSearchParams({});
-    setInitialIndex(0); // Reset index on clear
+    setCurrentIndex(0); // Reset index on clear
   };
 
   const {
@@ -78,10 +96,19 @@ const useNews = () => {
     onClose: onCloseSearchModal,
   } = useDisclosure();
 
-  const onClickHappy = (isHappy: boolean) => {
+  const onClickHappy = (isHappy: boolean = false) => {
     setHappy(isHappy);
     setSearchParams({ ...searchParams, isHappy });
   };
+
+  const mobileViewHook = useMobileView({
+    currentIndex,
+    setCurrentIndex,
+    data: newsData,
+    onLoadMore,
+  });
+
+  
 
   return {
     data: isHappy ? happyNewsData : newsData ?? response?.data,
@@ -91,7 +118,6 @@ const useNews = () => {
     isSearchModalOpen,
     displayMessage,
     showDisplayMessage,
-    initialIndex,
     setShowDisplayMessage,
     onSearch,
     onClear,
@@ -99,6 +125,7 @@ const useNews = () => {
     onCloseSearchModal,
     onLoadMore,
     onClickHappy,
+    mobileViewHook,
   };
 };
 

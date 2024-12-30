@@ -7,9 +7,8 @@ import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import useNews from "@/hooks/useNews";
 import { scrollLeftAnimation, scrollRightAnimation } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { FaHandPointLeft, FaHandPointRight } from "react-icons/fa6";
-
-import Link from "next/link";
 
 const Read = () => {
   const {
@@ -20,55 +19,21 @@ const Read = () => {
     isHappy,
     displayMessage,
     showDisplayMessage,
-    initialIndex,
     setShowDisplayMessage,
     onSearch,
     onClear,
     onOpenSearchModal,
     onCloseSearchModal,
-    onLoadMore,
     onClickHappy,
+    mobileViewHook,
   } = useNews();
 
   const { animate } = useAnimate(3000);
   const { isMobile } = useDeviceSizes();
+  const router = useRouter();
 
-  if (error || (!data && !isLoading)) {
-    return (
-      <Flex
-        height="full"
-        width="full"
-        justifyContent="center"
-        alignItems="center"
-        mx="auto"
-        direction="column"
-        gap="2rem"
-      >
-        <Text
-          color="red.400"
-          textTransform="uppercase"
-          fontSize={isMobile ? "sm" : "xl"}
-          fontWeight="bold"
-        >
-          {error
-            ? (error as { message: string }).message
-            : "Something went wrong"}
-        </Text>
-
-        <Link href="/">
-          <Box
-            padding="1rem"
-            border="1px solid"
-            borderRadius="md"
-            borderColor="black"
-            color="black"
-            _hover={{ bg: "black", color: "white", cursor: "pointer" }}
-          >
-            <Text textTransform="uppercase">Go to home page</Text>
-          </Box>
-        </Link>
-      </Flex>
-    );
+  if (error || (!data && !isLoading && !isHappy)) {
+    router.push('/error')
   }
 
   return (
@@ -106,12 +71,7 @@ const Read = () => {
       )}
       {isMobile && isLoading && <MobileSkeleton />}
       {!isLoading && isMobile && data && (
-        <MobileNewsScroll
-          initialData={data}
-          isLoading={isLoading}
-          onLoadMore={onLoadMore}
-          initialIndex={initialIndex}
-        />
+        <MobileNewsScroll {...mobileViewHook} data={data} isLoading={isLoading}/>
       )}
       <Flex gap="1rem" bottom="10%" position="absolute" left="38%">
         <Box

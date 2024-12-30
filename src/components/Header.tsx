@@ -62,7 +62,7 @@ const Header = ({
           </Box>
         ) : (
           <Flex gap="1rem">
-            <Box onClick={() => onClickHappy?.(!isHappy)}>
+            <Box onClick={() => onClickHappy?.(!isHappy || false)}>
               <ImHappy2 color={isHappy ? "#FEBE10" : "black"} size="1.5rem" />
             </Box>
             <Box onClick={onOpenSearchModal}>
