@@ -1,9 +1,9 @@
 import { NewsDataType } from "@/types/news";
+import { slideInAnimation } from "@/utils/keyFrames";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { MouseEvent, useEffect, useState } from "react";
 import MobileSkeleton from "../Skeleton/Mobile";
-import { slideInAnimation } from "@/utils/keyFrames";
 
 const ReadMore = () => {
   return (
@@ -117,7 +117,7 @@ const MobileNewsScroll = ({
   getDragOffset: () => number;
   isDragging: boolean;
 }) => {
-  console.log('current index: ', currentIndex)
+  
   return (
     <Box h="100vh" w="100vw" overflow="hidden" position="relative">
       <Flex

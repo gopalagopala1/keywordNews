@@ -29,7 +29,6 @@ const useNews = () => {
 
   useEffect(() => {
     if (!response && !isLoading && !(!!isHappy)) {
-      debugger
       router.push("/error");
     } else if (response && response.data && response?.status !== "error") {
       if (isHappy) {
@@ -39,16 +38,23 @@ const useNews = () => {
         const newData = response?.data ?? [];
 
         let updatedData = [];
-        if (_.isEmpty(searchParams)) {
+        const {page, ...rest} = searchParams;
+        const isEmpty = _.isEmpty(rest)
+        
+        if (isEmpty) {
           updatedData = _.uniqBy(
             [...(newsData ?? []), ...newData],
             "article_id"
           );
+          
+          const existingDataLength = newsData?.length ?? 0;
+          setCurrentIndex(existingDataLength);
         } else {
           updatedData = _.uniqBy(
             [...newData, ...(newsData ?? [])],
             "article_id"
           );
+          setCurrentIndex(0);
         }
 
         setNewsData(updatedData);
@@ -58,8 +64,7 @@ const useNews = () => {
           setNextPage(response.nextPage);
         }
 
-        const existingDataLength = newsData?.length ?? 0;
-        setCurrentIndex(existingDataLength);
+        
       } else if (response.errorMessage) {
         setCurrentIndex(0);
         setNewsData([...response?.data]);
