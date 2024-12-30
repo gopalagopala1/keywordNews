@@ -42,13 +42,14 @@ const useNews = () => {
         const isEmpty = _.isEmpty(rest)
         
         if (isEmpty) {
-          updatedData = _.uniqBy(
-            [...(newsData ?? []), ...newData],
-            "article_id"
+          updatedData = _.uniqBy([...(newsData ?? []), ...newData], "article_id");
+          
+          // Find the index of the first completely new article
+          const startIndex = updatedData.findIndex(item => 
+            !newsData?.some(oldItem => oldItem.article_id === item.article_id)
           );
           
-          const existingDataLength = newsData?.length ?? 0;
-          setCurrentIndex(existingDataLength);
+          setCurrentIndex(startIndex === -1 ? 0 : startIndex);
         } else {
           updatedData = _.uniqBy(
             [...newData, ...(newsData ?? [])],

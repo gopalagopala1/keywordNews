@@ -28,7 +28,7 @@ export default function Home() {
       position="relative"
     >
       <Text
-        fontSize={isMobile ? "2.5rem" : "3rem"}
+        fontSize={isMobile ? "2.5rem" : "3.5rem"}
         color="white"
         mt="8rem"
         textAlign="center"
@@ -65,27 +65,6 @@ export default function Home() {
         </Text>
       </Flex>
     </Flex>
-    // under maintenance
-    // <Flex
-    //   direction="column"
-    //   width="full"
-    //   height="full"
-    //   position="relative"
-    //   justifyContent="center"
-    //   alignItems="center"
-
-    // >
-
-    //   <Text
-    //     fontSize={isMobile ? "1.25rem" : "2rem"}
-    //     textAlign="center"
-    //     mt="2rem"
-    //     color="red.500"
-    //     fontWeight="extrabold"
-    //   >
-    //     We are currently under maintenance. Please check back later.
-    //   </Text>
-    // </Flex>
   );
 }
 
