@@ -24,7 +24,7 @@ export default function Home() {
     <Box
       bg="red.500"
       width="full"
-      minHeight={isMobile ? height : "75vh"}
+      minHeight={isMobile ? height : "77vh"}
       position="relative"
     >
       <Text
@@ -38,7 +38,7 @@ export default function Home() {
         Stay Informed,
         <br /> Keyword Way,
         <br />{" "}
-        <Text as="span" color="#FEBE10" fontSize={isMobile ? "3rem" : "5rem"}>
+        <Text as="span" color="#FEBE10" fontSize={isMobile ? "3rem" : "6rem"}>
           Happy Way
         </Text>
       </Text>

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useFetchNews } from "./useFetchNews";
 import useMobileView from "./useMobileView";
+import useDesktopView from "./useDesktopView";
 
 const useNews = () => {
   const [newsData, setNewsData] = useState<NewsDataType[]>();
@@ -114,6 +115,13 @@ const useNews = () => {
     onLoadMore,
   });
 
+
+  const desktopViewHook = useDesktopView({
+    currentIndex,
+    setCurrentIndex,
+    data: newsData,
+    onLoadMore,
+  })
   
 
   return {
@@ -131,7 +139,9 @@ const useNews = () => {
     onCloseSearchModal,
     onLoadMore,
     onClickHappy,
+    setCurrentIndex,
     mobileViewHook,
+    desktopViewHook
   };
 };
 

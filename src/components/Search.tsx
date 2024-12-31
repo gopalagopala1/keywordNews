@@ -1,3 +1,4 @@
+import { useDeviceSizes } from "@/hooks/useDeviceSizes";
 import { FetchNewsPayload } from "@/types/news";
 import {
   categoriesArray,
@@ -17,6 +18,13 @@ import {
   Flex,
   Input,
   InputGroup,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Select,
   Text,
 } from "@chakra-ui/react";
@@ -29,12 +37,9 @@ type SearchType = {
   onClear: () => void;
 };
 
-const Search = ({
-  isOpen,
-  onClose,
-  onSearch,
-  onClear,
-}: SearchType) => {
+const Search = ({ isOpen, onClose, onSearch, onClear }: SearchType) => {
+  const {isMobile} =  useDeviceSizes();
+
   const [searchParams, setSearchParams] = useState({
     includeKeywords: "",
     excludeKeywords: "",
@@ -84,10 +89,10 @@ const Search = ({
   };
 
   const mobileView = () => (
-    <Drawer isOpen={isOpen} placement="bottom" onClose={onClose} >
-      <DrawerOverlay width="full"/>
+    <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+      <DrawerOverlay width="full" />
       <DrawerContent minW="full">
-        <DrawerCloseButton  />
+        <DrawerCloseButton />
         <DrawerHeader
           fontSize="1.25rem"
           borderBottom="1px solid"
@@ -260,7 +265,183 @@ const Search = ({
     </Drawer>
   );
 
-  return mobileView();
+  const desktopView = () => (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay width="full" />
+      <ModalContent >
+        <ModalCloseButton />
+        <ModalHeader
+          fontSize="1.25rem"
+          borderBottom="1px solid"
+          borderColor="black"
+          width="full"
+        >
+          Search
+        </ModalHeader>
+
+        <form onSubmit={handleFormSubmit} style={{ height: "100%" }}>
+          <ModalBody py="1.5rem" width="full">
+            <Flex
+              direction="column"
+              justifyContent="space-between"
+              height="full"
+            >
+              <Flex direction="column" gap="1rem">
+                <InputGroup flexDirection="column">
+                  <Text mb="0.5rem" fontWeight="600">
+                    Include Keywords
+                  </Text>
+                  <Input
+                    value={searchParams.includeKeywords}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        includeKeywords: e.target.value,
+                      });
+                    }}
+                    placeholder="Enter keywords to include"
+                    border="1px"
+                    name="includeKeywords"
+                  />
+                  <Text fontSize="0.6rem" fontStyle="italic" color="grey">
+                    Search for news with above keyword (space or comma
+                    separated)
+                  </Text>
+                </InputGroup>
+
+                <InputGroup flexDirection="column">
+                  <Text mb="0.5rem" fontWeight="600">
+                    Exclude Keywords
+                  </Text>
+                  <Input
+                    value={searchParams.excludeKeywords}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        excludeKeywords: e.target.value,
+                      });
+                    }}
+                    placeholder="Enter keywords to exclude"
+                    border="1px"
+                    name="excludeKeywords"
+                  />
+                  <Text fontSize="0.6rem" fontStyle="italic" color="grey">
+                    Search for news without keywords (space or comma separated)
+                  </Text>
+                </InputGroup>
+
+                <InputGroup flexDirection="column">
+                  <Text mb="0.5rem" fontWeight="600">
+                    Country
+                  </Text>
+                  <Select
+                    placeholder="-Select Country-"
+                    border="1px"
+                    name="country"
+                    value={searchParams.country}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        country: e.target.value,
+                      });
+                    }}
+                  >
+                    {countryCodes?.map((cc) => (
+                      <option value={cc.value} key={cc.value}>
+                        {cc.label}
+                      </option>
+                    ))}
+                  </Select>
+                </InputGroup>
+
+                <InputGroup flexDirection="column">
+                  <Text mb="0.5rem" fontWeight="600">
+                    Category
+                  </Text>
+                  <Select
+                    placeholder="-Select Category-"
+                    border="1px"
+                    name="category"
+                    value={searchParams.category}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        category: e.target.value,
+                      });
+                    }}
+                  >
+                    {categoriesArray?.map((cat) => (
+                      <option value={cat.value} key={cat.value}>
+                        {cat.label}
+                      </option>
+                    ))}
+                  </Select>
+                </InputGroup>
+
+                <InputGroup flexDirection="column">
+                  <Text mb="0.5rem" fontWeight="600">
+                    Language
+                  </Text>
+                  <Select
+                    placeholder="-Select Language-"
+                    border="1px"
+                    name="language"
+                    value={searchParams.language}
+                    onChange={(e) => {
+                      setSearchParams({
+                        ...searchParams,
+                        language: e.target.value,
+                      });
+                    }}
+                  >
+                    {languageCodesArray?.map((lang) => (
+                      <option value={lang.value} key={lang.value}>
+                        {lang.label}
+                      </option>
+                    ))}
+                  </Select>
+                </InputGroup>
+              </Flex>
+            </Flex>
+          </ModalBody>
+          <ModalFooter borderTop="1px solid" borderColor="black">
+            <Flex gap="1rem" w="full">
+              <Button
+                bg="red.500"
+                textColor="white"
+                type="submit"
+                flex="1"
+                _hover={{
+                  textColor: "white",
+                  backgroundColor: "red.700",
+                  border: "1px",
+                  borderColor: "red.700",
+                }}
+              >
+                Search
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleClear}
+                flex="1"
+                color="black"
+                border="1px"
+                borderColor="black"
+                _hover={{
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "none",
+                }}
+              >
+                Clear
+              </Button>
+            </Flex>
+          </ModalFooter>
+        </form>
+      </ModalContent>
+    </Modal>
+  );
+  return isMobile ? mobileView(): desktopView();
 };
 
 export default Search;

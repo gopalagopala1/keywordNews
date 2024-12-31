@@ -95,7 +95,7 @@ const NewsCardMobileView = ({
     </Flex>
   );
 
-  return <>{isLoading ? <MobileSkeleton /> : mobileCard()}</>;
+  return <>{isLoading ? MobileSkeleton() : mobileCard()}</>;
 };
 
 const MobileNewsScroll = ({
@@ -117,7 +117,6 @@ const MobileNewsScroll = ({
   getDragOffset: () => number;
   isDragging: boolean;
 }) => {
-  
   return (
     <Box h="100vh" w="100vw" overflow="hidden" position="relative">
       <Flex
